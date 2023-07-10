@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 @Slf4j
@@ -19,8 +21,10 @@ public class ItemMapperRepository implements ItemRepository {
        return mapper.save(item);
     }
 
+    // ITEM 전체 조회
     @Override
-    public void update(Item item) {
-
+    public List<Item> findAll() {
+        return mapper.findAll();
     }
+
 }

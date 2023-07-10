@@ -8,4 +8,8 @@
         values (#{itemName}, #{price}, #{quantity})
     </insert>
 
+    <select id="findAll">
+        SELECT * FROM ITEM
+    </select>
+
 </mapper>
