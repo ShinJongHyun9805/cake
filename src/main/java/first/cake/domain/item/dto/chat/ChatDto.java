@@ -1,11 +1,17 @@
-package first.cake.domain.item.dto;
+package first.cake.domain.item.dto.chat;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 @Data
 @Builder
-public class ChatDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class ChatDto implements Serializable {
 
     public enum MessageType {
         ENTER, TALK // 입장, 채팅
