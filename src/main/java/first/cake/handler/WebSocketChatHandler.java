@@ -30,11 +30,11 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         log.info("session {}", chatMessage.toString());
 
         // 전달받은 메세지 ID로 채팅방 정보 조회
-        ChatRoomDto room = chatService.findRoomById(chatMessage.getRoomId());
-        log.info("room {}", room.toString());
+//        ChatRoomDto room = chatService.findRoomById(chatMessage.getRoomId());
+//        log.info("room {}", room.toString());
 
         // 해당 채팅방에 입장해 있는 모든 클라이언트에게 타입에 따른 메세지 발송
-        room.handleAction(session, chatMessage, chatService);
+        //room.handleAction(session, chatMessage, chatService);
     }
 
 }

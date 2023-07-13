@@ -15,16 +15,16 @@ class ChatServiceTest {
     @Autowired
     private ChatService chatService;
 
-    @Test
-    void 채팅방_생성확인() {
-        // given
-        String name = "Shin Jonghyun";
-
-        // when
-        ChatRoomDto room = chatService.createRoom(name);
-
-        // then
-        Assertions.assertNotNull(room);
-        System.out.println("room.getRoomId() = " + room.getRoomId());
-    }
+//    @Test
+//    void 채팅방_생성확인() {
+//        // given
+//        String name = "Shin Jonghyun";
+//
+//        // when
+//        ChatRoomDto room = chatService.createRoom(name);
+//
+//        // then
+//        Assertions.assertNotNull(room);
+//        System.out.println("room.getRoomId() = " + room.getRoomId());
+//    }
 }

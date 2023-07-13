@@ -5,40 +5,40 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.web.socket.WebSocketSession;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Data
 public class ChatRoomDto {
 
     private String roomId;  // 채팅방 아이디
-    private String name;    // 채팅방 이름
-    private Set<WebSocketSession> sessions = new HashSet<>();
+    private String roomName;    // 채팅방 이름
+    private long userCount; // 채팅방 인원수
 
-    @Builder
-    public ChatRoomDto(String roomId, String name){
-        this.roomId = roomId;
-        this.name = name;
+    private HashMap<String, String> userList = new HashMap<String, String>();
+
+    public ChatRoomDto create(String roomName){
+        ChatRoomDto chatRoom = new ChatRoomDto();
+        chatRoom.roomId = UUID.randomUUID().toString();
+        chatRoom.roomName = roomName;
+
+        return chatRoom;
     }
 
-    public void handleAction(WebSocketSession session, ChatDto message, ChatService service) {
-        // message 에 담긴 타입을 확인한다.
-        // 이때 message 에서 getType 으로 가져온 내용이
-        // ChatDTO 의 열거형인 MessageType 안에 있는 ENTER 과 동일한 값이라면
-        if (message.getType().equals(ChatDto.MessageType.ENTER)) {
-            // sessions 에 넘어온 session 을 담고,
-            sessions.add(session);
-
-            // message 에는 입장하였다는 메시지를 띄운다
-            message.setMessage(message.getSender() + " 님이 입장하셨습니다");
-            sendMessage(message, service);
-        } else if (message.getType().equals(ChatDto.MessageType.TALK)) {
-            message.setMessage(message.getMessage());
-            sendMessage(message, service);
-        }
+    // 채팅방 인원 + 1
+    public void plusUserCnt(){
+        this.userCount += 1;
     }
 
-    public <T> void sendMessage(T message, ChatService service) {
-        sessions.parallelStream().forEach(session -> service.sendMessage(session, message));
+    // 채팅방 인원 - 1
+    public void minusUserCnt(){
+        this.userCount -= 1;
+    }
+    
+    // 채팅방 유저 퇴장
+    public void exitUser(String userUUID){
+        this.userList.remove(userUUID);
     }
 }
