@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class ChatDto implements Serializable {
 
     public enum MessageType {
-        ENTER, TALK // 입장, 채팅
+        ENTER, TALK, LEAVE // 입장, 채팅, 퇴장
     }
 
     private MessageType type;   // 메시지 타입
