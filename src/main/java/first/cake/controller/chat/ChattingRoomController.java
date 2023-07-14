@@ -8,20 +8,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/chat")
 public class ChattingRoomController {
     
     private final ChatService chatService;
 
+    public static String customerId = "jhshin";
+
     // 채팅 리스트 화면
-    @GetMapping("/")
+    @GetMapping("/chat")
     public String goChatRoom(Model model){
         model.addAttribute("list", chatService.findAllRoom());
 
@@ -32,13 +32,16 @@ public class ChattingRoomController {
 
     // 채팅방 생성 후 다시 / 로 return
     @PostMapping("/chat/createRoom")
-    public String createRoom(@RequestParam String name, RedirectAttributes rttr) {
-        ChatRoomDto room = chatService.createChatRoom(name);
+    public String createRoom(@RequestParam("storeName") String storeName, RedirectAttributes rttr) {
+        // TODO : 이미 문의한 매장인지 체크
+
+
+        ChatRoomDto room = chatService.createChatRoom(storeName, customerId);
 
         log.info("CREATE Chat Room {}", room);
 
         rttr.addFlashAttribute("roomName", room);
-        return "redirect:/";
+        return "redirect:/chat";
     }
 
     // 채팅방 입장 화면

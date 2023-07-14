@@ -3,6 +3,7 @@ package first.cake.repository.chat;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import first.cake.domain.item.dto.chat.ChatRoomDto;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +12,7 @@ import java.util.*;
 
 @Slf4j
 @Repository
-@Data
+@RequiredArgsConstructor
 public class ChatRepository implements Chat{
 
     private final ObjectMapper mapper;
@@ -25,10 +26,11 @@ public class ChatRepository implements Chat{
     // 전체 채팅방 조회
     @Override
     public List<ChatRoomDto> findAllRooms() {
-        List<ChatRoomDto> chatRooms = new ArrayList<>();
-        Collections.reverse(chatRooms);
+        // 채팅방 생성 순서를 최근순으로 반환
+        List rooms = new ArrayList<>(chatRooms.values());
+        Collections.reverse(rooms);
 
-        return chatRooms;
+        return rooms;
     }
 
     // roomId로 채팅방 조회
@@ -37,10 +39,10 @@ public class ChatRepository implements Chat{
         return chatRooms.get(roomId);
     }
 
-    // roomName 으로 채팅방 생성
+    // storeName 으로 채팅방 생성
     @Override
-    public ChatRoomDto createChatRoom(String roomName) {
-        ChatRoomDto chatRoom = new ChatRoomDto().create(roomName);
+    public ChatRoomDto createChatRoom(String storeName, String customerId) {
+        ChatRoomDto chatRoom = new ChatRoomDto().create(storeName, customerId);
 
         chatRooms.put(chatRoom.getRoomId(), chatRoom);
 
@@ -105,4 +107,14 @@ public class ChatRepository implements Chat{
 
         return list;
     }
+
+//    @Override
+//    public Optional<String> alreadyInquire(String roomName, String userId) {
+//        ChatRoomDto chatRoom = chatRooms.get()
+//
+//
+//        return Optional.empty();
+//    }
+
+
 }

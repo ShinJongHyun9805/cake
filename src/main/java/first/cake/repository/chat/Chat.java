@@ -4,6 +4,7 @@ import first.cake.domain.item.dto.chat.ChatRoomDto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public interface Chat {
 
@@ -13,8 +14,8 @@ public interface Chat {
     // roomId로 채팅방 조회
     ChatRoomDto findRoomById(String roomId);
 
-    // roomName 로 채팅방 만들기
-    ChatRoomDto createChatRoom(String roomName);
+    // storeName 로 채팅방 만들기
+    ChatRoomDto createChatRoom(String storeName, String customerId);
 
     // 채팅방 인원 + 1
     void plusUserCnt(String roomId);
@@ -36,5 +37,8 @@ public interface Chat {
 
     // 채팅방 전체 userList 조회
     ArrayList<String> getUserList(String roomId);
+
+    // 이미 문의한 매장인지
+//    Optional<String> alreadyInquire(String roomName, String userId);
 
 }

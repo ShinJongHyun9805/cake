@@ -31,9 +31,9 @@ public class ChatService {
         return chat.findRoomById(roomId);
     }
 
-    // roomName 으로 채팅방 생성
-    public ChatRoomDto createChatRoom(String name){
-        return chat.createChatRoom(name);
+    // storeName 으로 채팅방 생성
+    public ChatRoomDto createChatRoom(String storeName, String customerId){
+        return chat.createChatRoom(storeName, customerId);
     }
 
     // 채팅방 인원 + 1
