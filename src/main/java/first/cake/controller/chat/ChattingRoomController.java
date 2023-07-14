@@ -27,7 +27,7 @@ public class ChattingRoomController {
 
         log.info("SHOW ALL ChatList {}", chatService.findAllRoom());
 
-        return "roomList";
+        return "chat/roomList";
     }
 
     // 채팅방 생성 후 다시 / 로 return
@@ -48,7 +48,7 @@ public class ChattingRoomController {
         log.info("roomId {}", roomId);
 
         model.addAttribute("room", chatService.findRoomById(roomId));
-        return "chatroom";
+        return "chat/chatRoom";
     }
 
 }
