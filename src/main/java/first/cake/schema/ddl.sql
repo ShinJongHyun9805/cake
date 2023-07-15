@@ -5,3 +5,18 @@ CREATE TABLE `cake`.`cake_chatting_room` (
              `user_count` INT NULL)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- user 테이블
+CREATE TABLE `cake`.`cake_user` (
+    `id` VARCHAR(20) NOT NULL,
+    `name` VARCHAR(10) NOT NULL,
+    `nickname` VARCHAR(10) NOT NULL,
+    `pw` VARCHAR(30) NOT NULL,
+    `phone_no` VARCHAR(13) NOT NULL,
+    `email` VARCHAR(30) NOT NULL,
+    `shop_yn` VARCHAR(1) NULL DEFAULT 'N' COMMENT '사장님인지 여부',
+    `reg_dt` DATETIME NULL,
+    `mod_dt` DATETIME NULL,
+    PRIMARY KEY (`id`))
+COMMENT = 'user 정보';
