@@ -28,7 +28,7 @@ dependencies {
 
 	// 웹 소켓 통신
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
-	implementation 'org.springframework.boot:spring-boot-starter-messaging'
+	//implementation 'org.springframework.boot:spring-boot-starter-messaging'
 
 	// sockjs
 	implementation 'org.webjars:sockjs-client:1.5.1'
