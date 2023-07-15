@@ -3,8 +3,24 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="first.cake.mybatis.chat.ChatMapper">
 
+    <!-- 전체 채팅방 조회 -->
     <select id="findAllRooms">
-        SELECT * FROM chat
+        SELECT * FROM cake_chatting_room
     </select>
+
+    <!-- roomId가 일치하는 채팅방 입장 -->
+    <select id="findRoomById" parameterType="java.lang.String" resultType="first.cake.domain.item.dto.chat.ChatRoomDto">
+        SELECT * FROM cake_chatting_room WHERE room_id = #{roomId}
+    </select>
+
+    <!-- storeName 로 채팅방 만들기 -->
+    <insert id="createChatRoom" parameterType="first.cake.domain.item.dto.chat.ChatRoomDto">
+        INSERT INTO cake_chatting_room VALUES (
+            #{roomId},
+            #{storeName},
+            #{customerId},
+            #{userCount}
+        )
+    </insert>
 
 </mapper>

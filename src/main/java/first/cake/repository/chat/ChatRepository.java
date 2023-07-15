@@ -2,6 +2,7 @@ package first.cake.repository.chat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import first.cake.domain.item.dto.chat.ChatRoomDto;
+import first.cake.mybatis.chat.ChatMapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +16,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class ChatRepository implements Chat{
 
-    private final ObjectMapper mapper;
+    private final ChatMapper chatMapper;
     private Map<String, ChatRoomDto> chatRooms;
 
     @PostConstruct // Bean 주입 후 초기화 작업이 필요한 메서드에 사용.
@@ -26,17 +27,13 @@ public class ChatRepository implements Chat{
     // 전체 채팅방 조회
     @Override
     public List<ChatRoomDto> findAllRooms() {
-        // 채팅방 생성 순서를 최근순으로 반환
-        List rooms = new ArrayList<>(chatRooms.values());
-        Collections.reverse(rooms);
-
-        return rooms;
+        return chatMapper.findAllRooms();
     }
 
-    // roomId로 채팅방 조회
+    // roomId가 일치하는 채팅방 입장
     @Override
     public ChatRoomDto findRoomById(String roomId) {
-        return chatRooms.get(roomId);
+        return chatMapper.findRoomById(roomId);
     }
 
     // storeName 으로 채팅방 생성
@@ -44,7 +41,7 @@ public class ChatRepository implements Chat{
     public ChatRoomDto createChatRoom(String storeName, String customerId) {
         ChatRoomDto chatRoom = new ChatRoomDto().create(storeName, customerId);
 
-        chatRooms.put(chatRoom.getRoomId(), chatRoom);
+        chatMapper.createChatRoom(chatRoom);
 
         return chatRoom;
     }
@@ -108,13 +105,12 @@ public class ChatRepository implements Chat{
         return list;
     }
 
-//    @Override
-//    public Optional<String> alreadyInquire(String roomName, String userId) {
+    @Override
+    public Optional<String> alreadyInquire(String roomId, String customerId) {
 //        ChatRoomDto chatRoom = chatRooms.get()
-//
-//
-//        return Optional.empty();
-//    }
+
+        return Optional.empty();
+    }
 
 
 }

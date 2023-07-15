@@ -11,7 +11,7 @@ public interface Chat {
     // 전체 채팅방 조회
     List<ChatRoomDto> findAllRooms();
 
-    // roomId로 채팅방 조회
+    // roomId가 일치하는 채팅방 입장
     ChatRoomDto findRoomById(String roomId);
 
     // storeName 로 채팅방 만들기
@@ -39,6 +39,6 @@ public interface Chat {
     ArrayList<String> getUserList(String roomId);
 
     // 이미 문의한 매장인지
-//    Optional<String> alreadyInquire(String roomName, String userId);
+    Optional<String> alreadyInquire(String roomId, String customerId);
 
 }

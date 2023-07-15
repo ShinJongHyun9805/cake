@@ -26,7 +26,7 @@ public class ChatService {
         return chat.findAllRooms();
     }
 
-    // roomId로 채팅방 조회
+    // roomId가 일치하는 채팅방 입장
     public ChatRoomDto findRoomById(String roomId){
         return chat.findRoomById(roomId);
     }
