@@ -28,6 +28,7 @@ public class ChatRepository implements Chat{
     @Override
     public List<ChatRoomDto> findAllRooms() {
         return chatMapper.findAllRooms();
+        //
     }
 
     // roomId가 일치하는 채팅방 입장
