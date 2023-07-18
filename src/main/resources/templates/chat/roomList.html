@@ -16,144 +16,37 @@
           integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
           crossorigin="anonymous">
     <script src="/js/roomlist/bootstrap-show-password.min.js"></script>
+
     <script th:inline="javascript">
-        let roomId;
-        $(function(){
-
-            // 모달창 열릴 때 이벤트 처리 => roomId 가져오기
-            $("#enterRoomModal").on("show.bs.modal", function (event) {
-                roomId = $(event.relatedTarget).data('id');
-                // console.log("roomId: " + roomId);
-
-            });
-
-            $("#confirmPwdModal").on("show.bs.modal", function (e) {
-                roomId = $(e.relatedTarget).data('id');
-                // console.log("roomId: " + roomId);
-
-            });
-
-            // 채팅방 설정 시 비밀번호 확인 - keyup 펑션 활용
-            $("#confirmPwd").on("keyup", function(){
-                let $confirmPwd = $("#confirmPwd").val();
-                const $configRoomBtn = $("#configRoomBtn");
-                let $confirmLabel = $("#confirmLabel");
-
-                $.ajax({
-                    type : "post",
-                    url : "/chat/confirmPwd/"+roomId,
-                    data : {
-                        "roomPwd" : $confirmPwd
-                    },
-                    success : function(result){
-                        // console.log("동작완료")
-
-                        // result 의 결과에 따라서 아래 내용 실행
-                        if(result){ // true 일때는
-                            // $configRoomBtn 를 활성화 상태로 만들고 비밀번호 확인 완료를 출력
-                            $configRoomBtn.attr("class", "btn btn-primary");
-                            $configRoomBtn.attr("aria-disabled", false);
-
-                            $confirmLabel.html("<span id='confirm'>비밀번호 확인 완료</span>");
-                            $("#confirm").css({
-                                "color" : "#0D6EFD",
-                                "font-weight" : "bold",
-                            });
-
-                        }else{ // false 일때는
-                            // $configRoomBtn 를 비활성화 상태로 만들고 비밀번호가 틀립니다 문구를 출력
-                            $configRoomBtn.attr("class", "btn btn-primary disabled");
-                            $configRoomBtn.attr("aria-disabled", true);
-
-                            $confirmLabel.html("<span id='confirm'>비밀번호가 틀립니다</span>");
-                            $("#confirm").css({
-                                "color" : "#FA3E3E",
-                                "font-weight" : "bold",
-                            });
-
-                        }
-                    }
-                })
-            })
-        })
+        //let roomId;
 
         // 채팅방 생성
-        function createRoom() {
+        function inquire() {
             let storeName = '히포케이크'; // 매장 이름
 
             $.ajax({
                 type : "post",
-                url : "/chat/createRoom/",
+                url : "/chat/inquireOrCreateRoom/",
                 async : false,
                 data : {
                     "storeName" : storeName
                 },
                 success : function(result){
-                    alert("채팅방 생성");
+                    const chatRoomDto = result;
+                    const room_Id = chatRoomDto.roomId;
+
+                    location.href = "/chat/room?roomId=" + room_Id;
                 },
                 error: function(xhr, status, error) {
-                    // 요청이 실패한 경우의 콜백 함수
-                    console.error(error);
-                }
-            })
-
-        }
-
-        // 채팅방 입장 시 비밀번호 확인
-        function enterRoom(){
-            let $enterPwd = $("#enterPwd").val();
-
-            $.ajax({
-                type : "post",
-                url : "/chat/confirmPwd/"+roomId,
-                async : false,
-                data : {
-                    "roomPwd" : $enterPwd
-                },
-                success : function(result){
-                    // console.log("동작완료")
-                    // console.log("확인 : "+chkRoomUserCnt(roomId))
-
-                    if(result){
-                        if (chkRoomUserCnt(roomId)) {
-                            location.href = "/chat/room?roomId="+roomId;
-                        }
-                    }else{
-                        alert("비밀번호가 틀립니다. \n 비밀번호를 확인해주세요")
-                    }
+                    alert("Error code: " + xhr.status + " 잠시 후 다시 시도해주세요.");
                 }
             })
         }
 
         // 채팅방 삭제
         function delRoom(){
-            location.href = "/chat/delRoom/"+roomId;
+            location.href = "/chat/delRoom/"+ roomId;
         }
-
-        // 채팅방 입장 시 인원 수에 따라서 입장 여부 결정
-        function chkRoomUserCnt(roomId){
-            let chk;
-
-            // 비동기 처리 설정 false 로 변경 => ajax 통신이 완료된 후 return 문 실행
-            // 기본설정 async = true 인 경우에는 ajax 통신 후 결과가 나올 때까지 기다리지 않고 먼저 return 문이 실행되서
-            // 제대로된 값 - 원하는 값 - 이 return 되지 않아서 문제가 발생한다.
-            $.ajax({
-                type : "GET",
-                url : "/chat/chkUserCnt/"+roomId,
-                async : false,
-                success : function(result){
-
-                    // console.log("여기가 먼저")
-                    if (!result) {
-                        alert("채팅방이 꽉 차서 입장 할 수 없습니다");
-                    }
-
-                    chk = result;
-                }
-            })
-            return chk;
-        }
-
     </script>
 </head>
 <body>
@@ -171,34 +64,18 @@
             <table class="table table-hover" id="table">
                 <tr>
                     <th scope="col">채팅방명</th>
-                    <th scope="col">잠금 여부</th>
-                    <th scope="col">참여 인원</th>
-                    <th scope="col">채팅방 설정</th>
                 </tr>
                 <th:block th:fragment="content">
-
                     <tr th:each="room : ${list}">
                         <span class="hidden" th:id="${room.storeName}"></span>
-    <!--                    <td th:if="${room.secretChk}">-->
-                            <a href="#enterRoomModal" data-bs-toggle="modal" data-target="#enterRoomModal" th:data-id="${room.roomId}">[[${room.storeName}]]</a>
-    <!--                    </td>-->
-    <!--                    <td th:if="${!room.secretChk}">-->
-                            <!-- thymeleaf 의 변수를 onclick 에 넣는 방법 -->
-                            <a th:href="@{/chat/room(roomId=${room.roomId})}" th:roomId="${room.roomId}" onclick="return chkRoomUserCnt(this.getAttribute('roomId'));">[[${room.storeName}]]</a>
-    <!--                    </td>-->
                         <td>
-    <!--                        <span th:if="${room.secretChk}">-->
-    <!--                            🔒︎-->
-    <!--                        </span>-->
-                        </td>
-                        <td>
-                            <button class="btn btn-primary btn-sm" id="configRoom" data-bs-toggle="modal" data-bs-target="#confirmPwdModal" th:data-id="${room.roomId}">채팅방 설정</button>
+                            <a th:href="@{/chat/room(roomId=${room.roomId})}" th:roomId="${room.roomId}">[[${room.storeName}]]</a>
                         </td>
                     </tr>
                 </th:block>
             </table>
         </div>
-        <button type="button" class="btn btn-info" onclick="createRoom()">문의하기</button>
+        <button type="button" class="btn btn-info" onclick="inquire()">문의하기</button>
     </div>
 </body>
 </html>

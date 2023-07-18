@@ -4,16 +4,26 @@
 <mapper namespace="first.cake.mybatis.chat.ChatMapper">
 
     <!-- 전체 채팅방 조회 -->
-    <select id="findAllRooms">
-        SELECT * FROM cake_chatting_room
+    <select id="findAllRooms" parameterType="java.lang.String">
+        SELECT
+            *
+        FROM
+            cake_chatting_room
+        WHERE
+            customer_id = #{customerId}
     </select>
 
-    <!-- roomId가 일치하는 채팅방 입장 -->
+    <!-- 입장 할 채팅 방 찾기 -->
     <select id="findRoomById" parameterType="java.lang.String" resultType="first.cake.domain.item.dto.chat.ChatRoomDto">
-        SELECT * FROM cake_chatting_room WHERE room_id = #{roomId}
+        SELECT
+            *
+        FROM
+            cake_chatting_room
+        WHERE
+            room_id = #{roomId}
     </select>
 
-    <!-- storeName 로 채팅방 만들기 -->
+    <!-- 최초 문의, 채팅방 만들기 -->
     <insert id="createChatRoom" parameterType="first.cake.domain.item.dto.chat.ChatRoomDto">
         INSERT INTO cake_chatting_room VALUES (
             #{roomId},
@@ -23,4 +33,14 @@
         )
     </insert>
 
+    <!-- 이미 문의한 매장인지 -->
+    <select id="alreadyInquire" parameterType="java.lang.String" resultType="first.cake.domain.item.dto.chat.ChatRoomDto">
+        SELECT
+            *
+        FROM
+            cake_chatting_room
+        WHERE
+            store_name = #{storeName}
+            AND customer_id = #{customerId}
+    </select>
 </mapper>

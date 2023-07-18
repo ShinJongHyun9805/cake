@@ -1,15 +1,10 @@
 'use strict';
 
-// document.write("<script src='jquery-3.6.1.js'></script>")
 document.write("<script\n" +
     "  src=\"https://code.jquery.com/jquery-3.6.1.min.js\"\n" +
     "  integrity=\"sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=\"\n" +
     "  crossorigin=\"anonymous\"></script>")
 
-
-var usernamePage = document.querySelector('#username-page');
-var chatPage = document.querySelector('#chat-page');
-var usernameForm = document.querySelector('#usernameForm');
 var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
@@ -27,16 +22,9 @@ var colors = [
 const url = new URL(location.href).searchParams;
 const roomId = url.get('roomId');
 
-function connect(event) {
-    username = document.querySelector('#name').value.trim();
-
-    // username 중복 확인
-    isDuplicateName();
-
-    // usernamePage 에 hidden 속성 추가해서 가리고
-    // chatPage 를 등장시킴
-    usernamePage.classList.add('hidden');
-    chatPage.classList.remove('hidden');
+window.onload = function (event){
+    // TODO : 로그인한 계정 username
+    username = 'jhshin';
 
     // 연결하고자하는 Socket 의 endPoint
     var socket = new SockJS('/ws-stomp');
@@ -44,12 +32,8 @@ function connect(event) {
 
     stompClient.connect({}, onConnected, onError);
 
-
     event.preventDefault();
-
-
 }
-
 function onConnected() {
 
     // sub 할 url => /sub/chat/room/roomId 로 구독한다
@@ -65,28 +49,7 @@ function onConnected() {
             type: 'ENTER'
         })
     )
-
     connectingElement.classList.add('hidden');
-
-}
-
-// 유저 닉네임 중복 확인
-function isDuplicateName() {
-
-    $.ajax({
-        type: "GET",
-        url: "/chat/duplicateName",
-        data: {
-            "username": username,
-            "roomId": roomId
-        },
-        success: function (data) {
-            console.log("함수 동작 확인 : " + data);
-
-            username = data;
-        }
-    })
-
 }
 
 // 유저 리스트 받기
@@ -179,7 +142,6 @@ function onMessageReceived(payload) {
     messageArea.scrollTop = messageArea.scrollHeight;
 }
 
-
 function getAvatarColor(messageSender) {
     var hash = 0;
     for (var i = 0; i < messageSender.length; i++) {
@@ -190,5 +152,4 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 
-usernameForm.addEventListener('submit', connect, true)
 messageForm.addEventListener('submit', sendMessage, true)

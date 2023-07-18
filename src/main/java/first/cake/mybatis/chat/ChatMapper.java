@@ -2,6 +2,7 @@ package first.cake.mybatis.chat;
 
 import first.cake.domain.item.dto.chat.ChatRoomDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -9,12 +10,15 @@ import java.util.List;
 public interface ChatMapper {
 
     // 전체 채팅방 조회
-    List<ChatRoomDto> findAllRooms();
+    List<ChatRoomDto> findAllRooms(String customerId);
 
-    // roomId가 일치하는 채팅방 입장
+    // 입장 할 채팅 방 찾기
     ChatRoomDto findRoomById(String roomId);
 
-    // storeName 로 채팅방 만들기
+    // 최초 문의, 채팅방 만들기
     void createChatRoom(ChatRoomDto chatRoom);
+
+    // 이미 문의한 매장인지
+    ChatRoomDto alreadyInquire(@Param("storeName") String storeName, @Param("customerId") String customerId);
 
 }

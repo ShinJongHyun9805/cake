@@ -4,12 +4,16 @@ import first.cake.domain.item.dto.chat.ChatRoomDto;
 import first.cake.service.chat.ChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.sql.SQLException;
 
 @Slf4j
 @Controller
@@ -20,28 +24,30 @@ public class ChattingRoomController {
 
     public static String customerId = "jhshin";
 
-    // 채팅 리스트 화면
+    // 채팅 리스트
     @GetMapping("/chat")
     public String goChatRoom(Model model){
-        model.addAttribute("list", chatService.findAllRoom());
+        String customerId = "jhshin";
 
-        log.info("SHOW ALL ChatList {}", chatService.findAllRoom());
+        model.addAttribute("list", chatService.findAllRoom(customerId));
+
+        log.info("SHOW ALL ChatList {}", chatService.findAllRoom(customerId));
 
         return "chat/roomList";
     }
 
-    // 채팅방 생성 후 다시 / 로 return
-    @PostMapping("/chat/createRoom")
-    public String createRoom(@RequestParam("storeName") String storeName, RedirectAttributes rttr) {
-        // TODO : 이미 문의한 매장인지 체크
+    // 문의하기 -> 최초 문의 OR 기존 채팅 방
+    @PostMapping("/chat/inquireOrCreateRoom")
+    public ResponseEntity<ChatRoomDto> inquireOrCreateRoom(@RequestParam("storeName") String storeName, Model model) {
 
+        try {
+            ChatRoomDto res = chatService.inquireOrCreateChatRoom(storeName, customerId);
+            log.info("Chat Room {}", res);
 
-        ChatRoomDto room = chatService.createChatRoom(storeName, customerId);
-
-        log.info("CREATE Chat Room {}", room);
-
-        rttr.addFlashAttribute("roomName", room);
-        return "redirect:/chat";
+            return ResponseEntity.ok(res);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     // 채팅방 입장 화면

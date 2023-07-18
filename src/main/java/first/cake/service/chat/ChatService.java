@@ -22,8 +22,8 @@ public class ChatService {
     private final Chat chat;
 
     // 모든 채팅방 조회
-    public List<ChatRoomDto> findAllRoom(){
-        return chat.findAllRooms();
+    public List<ChatRoomDto> findAllRoom(String customerId){
+        return chat.findAllRooms(customerId);
     }
 
     // roomId가 일치하는 채팅방 입장
@@ -31,9 +31,12 @@ public class ChatService {
         return chat.findRoomById(roomId);
     }
 
-    // storeName 으로 채팅방 생성
-    public ChatRoomDto createChatRoom(String storeName, String customerId){
-        return chat.createChatRoom(storeName, customerId);
+    // 문의하기 -> 최초 문의 OR 기존 채팅 방
+    public ChatRoomDto inquireOrCreateChatRoom(String storeName, String customerId){
+        // TODO : DB 커넥트를 3번 함 -> 프로시저
+        return chat.alreadyInquire(storeName, customerId)
+                .map(res -> chat.findRoomById(res.getRoomId())) // 이미 문의한 매장이면 채팅방 입장
+                .orElseGet(() -> chat.createChatRoom(storeName, customerId)); // 최초 문의 시 채팅방 생성
     }
 
     // 채팅방 인원 + 1

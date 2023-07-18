@@ -35,7 +35,6 @@ public class ChatController {
 
     @MessageMapping("/chat/enterUser")
     public void enterUser(@Payload ChatDto chat, SimpMessageHeaderAccessor headerAccessor){
-
         // 채팅방 유저 + 1
         chatService.plusUserCnt(chat.getRoomId());
 

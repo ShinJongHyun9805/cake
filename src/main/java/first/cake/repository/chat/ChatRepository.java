@@ -26,18 +26,17 @@ public class ChatRepository implements Chat{
 
     // 전체 채팅방 조회
     @Override
-    public List<ChatRoomDto> findAllRooms() {
-        return chatMapper.findAllRooms();
-        //
+    public List<ChatRoomDto> findAllRooms(String customerId) {
+        return chatMapper.findAllRooms(customerId);
     }
 
-    // roomId가 일치하는 채팅방 입장
+    // 입장 할 채팅 방 찾기
     @Override
     public ChatRoomDto findRoomById(String roomId) {
         return chatMapper.findRoomById(roomId);
     }
 
-    // storeName 으로 채팅방 생성
+    // 최초 문의, 채팅방 만들기
     @Override
     public ChatRoomDto createChatRoom(String storeName, String customerId) {
         ChatRoomDto chatRoom = new ChatRoomDto().create(storeName, customerId);
@@ -50,7 +49,7 @@ public class ChatRepository implements Chat{
     // 채팅방 인원 + 1
     @Override
     public void plusUserCnt(String roomId) {
-        ChatRoomDto chatRoom = chatRooms.get(roomId);
+        ChatRoomDto chatRoom = chatMapper.findRoomById(roomId);
         chatRoom.plusUserCnt();
     }
 
@@ -64,7 +63,7 @@ public class ChatRepository implements Chat{
     // 채팅방 유저 리스트에 유저 추가
     @Override
     public String addUser(String roomId, String userName) {
-        ChatRoomDto chatRoom = chatRooms.get(roomId);
+        ChatRoomDto chatRoom = chatMapper.findRoomById(roomId);
         String userUUID = UUID.randomUUID().toString();
 
         chatRoom.getUserList().put(userUUID, userName);
@@ -98,7 +97,7 @@ public class ChatRepository implements Chat{
     public ArrayList<String> getUserList(String roomId) {
         ArrayList<String> list = new ArrayList<>();
 
-        ChatRoomDto chatRoom = chatRooms.get(roomId);
+        ChatRoomDto chatRoom = chatMapper.findRoomById(roomId);
 
         // value 값만 뽑아내서 list 저장
         chatRoom.getUserList().forEach((key, value) -> list.add(value));
@@ -107,11 +106,9 @@ public class ChatRepository implements Chat{
     }
 
     @Override
-    public Optional<String> alreadyInquire(String roomId, String customerId) {
-//        ChatRoomDto chatRoom = chatRooms.get()
+    public Optional<ChatRoomDto> alreadyInquire(String storeName, String customerId) {
+        ChatRoomDto chatRoomDto = chatMapper.alreadyInquire(storeName, customerId);
 
-        return Optional.empty();
+        return Optional.ofNullable(chatRoomDto);
     }
-
-
 }

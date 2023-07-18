@@ -9,12 +9,12 @@ import java.util.Optional;
 public interface Chat {
 
     // 전체 채팅방 조회
-    List<ChatRoomDto> findAllRooms();
+    List<ChatRoomDto> findAllRooms(String customerId);
 
-    // roomId가 일치하는 채팅방 입장
+    // 입장 할 채팅 방 찾기
     ChatRoomDto findRoomById(String roomId);
 
-    // storeName 로 채팅방 만들기
+    // 최초 문의, 채팅방 만들기
     ChatRoomDto createChatRoom(String storeName, String customerId);
 
     // 채팅방 인원 + 1
@@ -39,6 +39,6 @@ public interface Chat {
     ArrayList<String> getUserList(String roomId);
 
     // 이미 문의한 매장인지
-    Optional<String> alreadyInquire(String roomId, String customerId);
+    Optional<ChatRoomDto> alreadyInquire(String storeName, String customerId);
 
 }
