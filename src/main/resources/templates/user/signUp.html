@@ -30,13 +30,13 @@
 </noscript>
 
 <h1>회원가입</h1>
-<form th:action="@{/signUp}" onsubmit="return onSubmitJoinGeneral();">
+<form name = "join-general-form" th:action="@{/signUp}" method="post" onsubmit="return onSubmitJoinGeneral();" enctype="application/x-www-form-urlencoded">
   <div class="form-group">
     <div class="form-head">
       <i class="es2"></i><label for="member-join-general-id-text" class="form-label">아이디</label>
     </div>
     <div class="input-group type-lg">
-      <input type="text" id="member-join-general-id-text" name="member-join-general-id-text" placeholder="아이디를 입력하세요." onblur="loginIdChange();" onkeyup="loginIdChange();"/>
+      <input type="text" id="member-join-general-id-text" name="userId" placeholder="아이디를 입력하세요." onblur="loginIdChange();" onkeyup="loginIdChange();"/>
       <span class="input-group-btn">
         <button type="button" onclick="verifyLoginIdAjax();" id="btn-id-check"><span>중복확인</span></button>
       </span>
@@ -50,7 +50,7 @@
     </div><!--// form-head -->
     <div class="input-group type-lg">
       <label for="member-join-general-pw-text" class="blind">비밀번호 입력</label>
-      <input type="password" id="member-join-general-pw-text" name="member-join-general-pw-text" class="input-text w571" placeholder="6 ~ 16자 영문, 숫자, 특수문자 1개 이상씩 혼용하여 입력하세요." onblur="onEventMemberJoinPasswords();" onkeyup="onEventMemberJoinPasswords();">
+      <input type="password" id="member-join-general-pw-text" name="passwd" class="input-text w571" placeholder="6 ~ 16자 영문, 숫자, 특수문자 1개 이상씩 혼용하여 입력하세요." onblur="onEventMemberJoinPasswords();" onkeyup="onEventMemberJoinPasswords();">
     </div>
     <span class="error-msg" id="member-join-general-pw-text-error1">6 ~ 16자 영문, 숫자, 특수문자 1개 이상씩 혼용 필수입니다.</span>
     <span class="error-msg" id="member-join-general-pw-text-error2">특수문자는 !, @, #, $, %, ^, &amp;, * 만 사용 가능합니다.</span>
@@ -62,7 +62,7 @@
     </div><!--// form-head -->
     <div class="input-group type-lg">
       <label for="member-join-general-pw-confirm-text" class="blind">비밀번호 확인</label>
-      <input type="password" id="member-join-general-pw-confirm-text" name="member-join-general-pw-confirm-text" class="input-text w571" placeholder="비밀번호를 한번 더 입력하세요." onblur="verifyMemberJoinPasswordsMatching();" onkeyup="verifyMemberJoinPasswordsMatching();">
+      <input type="password" id="member-join-general-pw-confirm-text" name="passwdConfirm" class="input-text w571" placeholder="비밀번호를 한번 더 입력하세요." onblur="verifyMemberJoinPasswordsMatching();" onkeyup="verifyMemberJoinPasswordsMatching();">
     </div>
     <span class="error-msg" id="member-join-general-pw-confirm-text-error">동일한 비밀번호를 입력하세요.</span>
   </div><!--// form-group -->
@@ -72,7 +72,7 @@
       <i class="es2"></i><label for="member-join-general-name-text" class="form-label">이름</label>
     </div><!--// form-head -->
     <div class="input-group type-lg">
-      <input type="text" id="member-join-general-name-text" name="member-join-general-name-text" class="input-text" placeholder="이름을 입력해 주세요." maxlength="50">
+      <input type="text" id="member-join-general-name-text" name="userName" class="input-text" placeholder="이름을 입력해 주세요." maxlength="50">
     </div>
     <span class="error-msg" id="member-join-general-name-text-error">이름을 입력해주세요.</span>
   </div><!--// form-group -->
@@ -127,6 +127,9 @@
     };
 
     $(document).ready(function () {
+
+      $('#join-general-form').attr('accept-charset', 'UTF-8');
+
       $('#member-join-general-id-text-error').html('');
       $('#member-join-general-pw-text-error1').html('');
       $('#member-join-general-pw-text-error2').html('');
@@ -294,36 +297,36 @@
 
     function onSubmitJoinGeneral() {
 
-      // 아이디 검증
-      if ($('#btn-id-check').find('span').text() !== '확인완료'){
-        alert('아이디 중복확인을 버튼을 눌러주세요');
-        $('#btn-id-check').focus();
-        return false;
-      }
-
-      // 아이디 검증
-      if (!verifyMemberJoinLoginIdAjax(true)) {
-        memberJoinStatus.isIdChecked = false;
-        $('#member-join-general-id-text').focus();
-        checkSubmitBtnState();
-        return false;
-      }
-
-      //비밀번호 미입력 검증
-      if(!verifyMemberJoinPwEmpty()) {
-        memberJoinStatus.isPwChecked = false;
-        $('#member-join-general-pw-text').focus();
-        checkSubmitBtnState();
-        return false;
-      }
-
-      // 비밀번호 정규식 검증
-      if (!verifyMemberJoinPassword(true)) {
-        memberJoinStatus.isPwChecked = false;
-        $('#member-join-general-pw-text').focus();
-        checkSubmitBtnState();
-        return false;
-      }
+      // // 아이디 검증
+      // if ($('#btn-id-check').find('span').text() !== '확인완료'){
+      //   alert('아이디 중복확인을 버튼을 눌러주세요');
+      //   $('#btn-id-check').focus();
+      //   return false;
+      // }
+      //
+      // // 아이디 검증
+      // if (!verifyMemberJoinLoginIdAjax(true)) {
+      //   memberJoinStatus.isIdChecked = false;
+      //   $('#member-join-general-id-text').focus();
+      //   checkSubmitBtnState();
+      //   return false;
+      // }
+      //
+      // //비밀번호 미입력 검증
+      // if(!verifyMemberJoinPwEmpty()) {
+      //   memberJoinStatus.isPwChecked = false;
+      //   $('#member-join-general-pw-text').focus();
+      //   checkSubmitBtnState();
+      //   return false;
+      // }
+      //
+      // // 비밀번호 정규식 검증
+      // if (!verifyMemberJoinPassword(true)) {
+      //   memberJoinStatus.isPwChecked = false;
+      //   $('#member-join-general-pw-text').focus();
+      //   checkSubmitBtnState();
+      //   return false;
+      // }
 
       // 확인 비밀번호 검증 (비밀번호/확인 비밀번호 같은지 확인해서 처리하므로 생략)
       // if (!verifyMemberJoinPwConfirm(true)) {
@@ -333,23 +336,24 @@
       //     return false;
       // }
 
-      // 비밀번호/확인 비밀번호 같은지 확인
-      if (!verifyMemberJoinPasswordsMatching(true)) {
-        memberJoinStatus.isPwCompared = false;
-        alert('비밀번호를 확인해주세요.');
-        $('#member-join-general-pw-confirm-text').focus();
-        checkSubmitBtnState();
-        return false;
-      }
+      // // 비밀번호/확인 비밀번호 같은지 확인
+      // if (!verifyMemberJoinPasswordsMatching(true)) {
+      //   memberJoinStatus.isPwCompared = false;
+      //   alert('비밀번호를 확인해주세요.');
+      //   $('#member-join-general-pw-confirm-text').focus();
+      //   checkSubmitBtnState();
+      //   return false;
+      // }
+      //
+      // // 이름 검증
+      // if (!verifyMemberJoinUserName(true)) {
+      //   memberJoinStatus.isNameChecked = false;
+      //   $('#member-join-general-name-text').focus();
+      //   checkSubmitBtnState();
+      //   return false;
+      // }
 
-      // 이름 검증
-      if (!verifyMemberJoinUserName(true)) {
-        memberJoinStatus.isNameChecked = false;
-        $('#member-join-general-name-text').focus();
-        checkSubmitBtnState();
-        return false;
-      }
-
-      return true;
+      if(status.isIdChecked) return true;
+      return false;
     }
 </script>

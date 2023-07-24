@@ -3,4 +3,27 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="first.cake.mybatis.user.UserMapper">
 
+    <select id="checkIdValidate" parameterType="String" resultType="String">
+        select CASE WHEN COUNT(id) = 0 THEN 'Y'
+                ELSE 'N' END
+        from cake_user
+        where id = #{loginId}
+    </select>
+
+    <insert id="signUp" parameterType="HashMap">
+        INSERT INTO cake_user
+        VALUES
+        (
+            #{userId}
+            ,#{userName}
+            ,IFNULL(#{userNickName},'종혀누바보')
+            ,#{passwd}
+            ,IFNULL(#{userPhoneNo},'010-1212-1212')
+            ,IFNULL(#{userEmail},'aaa@naver.com')
+            ,'N'
+            ,NOW()
+            ,NOW()
+        )
+    </insert>
+
 </mapper>
