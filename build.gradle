@@ -28,7 +28,8 @@ dependencies {
 
 	// 웹 소켓 통신
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
-	//implementation 'org.springframework.boot:spring-boot-starter-messaging'
+	// kafka - 채팅 로그
+	implementation 'org.springframework.kafka:spring-kafka'
 
 	// sockjs
 	implementation 'org.webjars:sockjs-client:1.5.1'

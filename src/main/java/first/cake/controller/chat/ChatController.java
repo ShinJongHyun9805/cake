@@ -1,22 +1,30 @@
 package first.cake.controller.chat;
 
-import first.cake.domain.item.dto.chat.ChatDto;
+import first.cake.common.Constant;
+import first.cake.domain.dto.chat.ChatDto;
+import first.cake.domain.entity.chat.ChatLog;
 import first.cake.service.chat.ChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @MeesageMapping : 클라이언트에서 메세지를 /{지정 경로}로 발송하면 해당 어노테이션의 메서드로 실행
@@ -32,7 +40,9 @@ public class ChatController {
 
     private final SimpMessageSendingOperations template;
     private final ChatService chatService;
+    private final KafkaTemplate<String, ChatDto> kafkaTemplate;
 
+    // 채팅방 입장
     @MessageMapping("/chat/enterUser")
     public void enterUser(@Payload ChatDto chat, SimpMessageHeaderAccessor headerAccessor){
         // 채팅방 유저 + 1
@@ -45,17 +55,28 @@ public class ChatController {
         headerAccessor.getSessionAttributes().put("userUUID", userUUID);
         headerAccessor.getSessionAttributes().put("roomId", chat.getRoomId());
 
-        chat.setMessage(chat.getSender() + "님 입장하셨습니다.");
         template.convertAndSend("/sub/chat/room/" + chat.getRoomId(), chat);
+    }
+
+    // 채팅 이력
+    @GetMapping("/chat/chatHistory")
+    @ResponseBody
+    public List<ChatLog> findChatLog(@RequestParam("roomId") String roomId) {
+        return chatService.findChatLog(roomId);
     }
 
     // 해당 유저
     @MessageMapping("/chat/sendMessage")
     public void sendMessage(@Payload ChatDto chat) {
-        log.info("CHAT {}", chat);
+        kafkaTemplate.send(Constant.KAFKA_TOPIC, chat);
 
-        chat.setMessage(chat.getMessage());
         template.convertAndSend("/sub/chat/room/" + chat.getRoomId(), chat);
+    }
+
+    @KafkaListener(topics = Constant.KAFKA_TOPIC, groupId = "group_1")
+    @Transactional
+    public void listener(ChatDto chat){
+        chatService.insertChatLog(chat);
     }
 
     // 유저 퇴장 시 EventListener 를 통해 유저 퇴장 확인

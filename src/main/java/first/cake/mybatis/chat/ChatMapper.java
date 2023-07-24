@@ -1,6 +1,8 @@
 package first.cake.mybatis.chat;
 
-import first.cake.domain.item.dto.chat.ChatRoomDto;
+import first.cake.domain.dto.chat.ChatDto;
+import first.cake.domain.dto.chat.ChatRoomDto;
+import first.cake.domain.entity.chat.ChatLog;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,5 +22,11 @@ public interface ChatMapper {
 
     // 이미 문의한 매장인지
     ChatRoomDto alreadyInquire(@Param("storeName") String storeName, @Param("customerId") String customerId);
+
+    // 채팅내용 저장
+    void insertChatLog(ChatDto chatDto);
+
+    // 채팅로그 가져오기
+    List<ChatLog> findChatLog(String roomId);
 
 }

@@ -1,9 +1,9 @@
 package first.cake.repository.chat;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import first.cake.domain.item.dto.chat.ChatRoomDto;
+import first.cake.domain.dto.chat.ChatDto;
+import first.cake.domain.dto.chat.ChatRoomDto;
+import first.cake.domain.entity.chat.ChatLog;
 import first.cake.mybatis.chat.ChatMapper;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -110,5 +110,17 @@ public class ChatRepository implements Chat{
         ChatRoomDto chatRoomDto = chatMapper.alreadyInquire(storeName, customerId);
 
         return Optional.ofNullable(chatRoomDto);
+    }
+
+    // 채팅로그 저장
+    @Override
+    public void insertChatLog(ChatDto chatDto) {
+        chatMapper.insertChatLog(chatDto);
+    }
+
+    // 채팅로그 가져오기
+    @Override
+    public List<ChatLog> findChatLog(String roomId) {
+        return chatMapper.findChatLog(roomId);
     }
 }

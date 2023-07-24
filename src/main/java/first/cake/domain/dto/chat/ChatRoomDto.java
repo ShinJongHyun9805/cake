@@ -1,4 +1,4 @@
-package first.cake.domain.item.dto.chat;
+package first.cake.domain.dto.chat;
 
 import lombok.Data;
 
@@ -10,7 +10,9 @@ public class ChatRoomDto {
 
     private String roomId;      // 채팅방 아이디
     private String storeName;   // 채팅방 이름
-    private String customerId;  // 고객 ID
+    private String sender;      // 고객 ID
+    private String message;     // 메세지
+    private String time;        // 메세지 시간
     private long userCount;     // 채팅방 인원수
 
     private HashMap<String, String> userList = new HashMap<String, String>();
@@ -19,7 +21,7 @@ public class ChatRoomDto {
         ChatRoomDto chatRoom = new ChatRoomDto();
         chatRoom.roomId = UUID.randomUUID().toString();
         chatRoom.storeName = storeName;
-        chatRoom.customerId = customerId;
+        chatRoom.sender = customerId;
 
         return chatRoom;
     }
