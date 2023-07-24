@@ -1,9 +1,19 @@
+-- 채팅방
 CREATE TABLE `cake`.`cake_chatting_room` (
              `room_id` VARCHAR(28) NULL,
              `store_name` VARCHAR(20) NULL,
              `customer_id` VARCHAR(30) NULL,
              `user_count` INT NULL)
 ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+-- 채팅방 로그
+CREATE TABLE `cake`.`cake_chat_log` (
+            `room_id` VARCHAR(45) NULL,
+            `sender` VARCHAR(45) NULL,
+            `message` VARCHAR(1024) NULL,
+            `time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP)
+    ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
 

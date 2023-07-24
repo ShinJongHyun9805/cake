@@ -1,6 +1,8 @@
 package first.cake.repository.chat;
 
-import first.cake.domain.item.dto.chat.ChatRoomDto;
+import first.cake.domain.dto.chat.ChatDto;
+import first.cake.domain.dto.chat.ChatRoomDto;
+import first.cake.domain.entity.chat.ChatLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,5 +42,11 @@ public interface Chat {
 
     // 이미 문의한 매장인지
     Optional<ChatRoomDto> alreadyInquire(String storeName, String customerId);
+
+    // 채팅 로그 저장
+    void insertChatLog(ChatDto chatDto);
+
+    // 채팅 로그 가져오기
+    List<ChatLog> findChatLog(String roomId);
 
 }

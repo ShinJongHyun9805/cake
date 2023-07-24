@@ -14,7 +14,7 @@
     </select>
 
     <!-- 입장 할 채팅 방 찾기 -->
-    <select id="findRoomById" parameterType="java.lang.String" resultType="first.cake.domain.item.dto.chat.ChatRoomDto">
+    <select id="findRoomById" parameterType="java.lang.String" resultType="first.cake.domain.dto.chat.ChatRoomDto">
         SELECT
             *
         FROM
@@ -24,7 +24,7 @@
     </select>
 
     <!-- 최초 문의, 채팅방 만들기 -->
-    <insert id="createChatRoom" parameterType="first.cake.domain.item.dto.chat.ChatRoomDto">
+    <insert id="createChatRoom" parameterType="first.cake.domain.dto.chat.ChatRoomDto">
         INSERT INTO cake_chatting_room VALUES (
             #{roomId},
             #{storeName},
@@ -34,7 +34,7 @@
     </insert>
 
     <!-- 이미 문의한 매장인지 -->
-    <select id="alreadyInquire" parameterType="java.lang.String" resultType="first.cake.domain.item.dto.chat.ChatRoomDto">
+    <select id="alreadyInquire" parameterType="java.lang.String" resultType="first.cake.domain.dto.chat.ChatRoomDto">
         SELECT
             *
         FROM
@@ -42,5 +42,31 @@
         WHERE
             store_name = #{storeName}
             AND customer_id = #{customerId}
+    </select>
+
+    <!-- 채팅 내용 저장 -->
+    <insert id="insertChatLog" parameterType="first.cake.domain.dto.chat.ChatDto">
+        INSERT INTO cake_chat_log VALUES (
+             #{roomId},
+             #{sender},
+             #{message},
+             NOW()
+         )
+    </insert>
+
+    <!-- 채팅로그 가져오기 -->
+    <select id="findChatLog" parameterType="java.lang.String" resultType="first.cake.domain.entity.chat.ChatLog">
+        SELECT
+            'HISTORY' AS type,
+            cr.room_id,
+            cr.store_name,
+            cl.sender,
+            cl.message,
+            cl.time
+        FROM cake.cake_chatting_room AS cr
+                 INNER JOIN cake.cake_chat_log AS cl
+                            ON cl.room_id = cr.room_id
+        WHERE
+            cl.room_id = #{roomId}
     </select>
 </mapper>

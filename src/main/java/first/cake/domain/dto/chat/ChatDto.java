@@ -1,4 +1,4 @@
-package first.cake.domain.item.dto.chat;
+package first.cake.domain.dto.chat;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class ChatDto implements Serializable {
 
     public enum MessageType {
-        ENTER, TALK, LEAVE // 입장, 채팅, 퇴장
+        ENTER, TALK, LEAVE, HISTORY // 입장, 채팅, 퇴장, 채팅 내역
     }
 
     private MessageType type;   // 메시지 타입

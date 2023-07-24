@@ -35,7 +35,6 @@ window.onload = function (event){
     event.preventDefault();
 }
 function onConnected() {
-
     // sub 할 url => /sub/chat/room/roomId 로 구독한다
     stompClient.subscribe('/sub/chat/room/' + roomId, onMessageReceived);
 
@@ -50,6 +49,49 @@ function onConnected() {
         })
     )
     connectingElement.classList.add('hidden');
+
+    $.ajax({
+        type: "GET",
+        url: "/chat/chatHistory",
+        data: {
+            "roomId": roomId
+        },
+        success: function (chatHistory) {
+            // Process the chat history
+            chatHistory.forEach(function (chatLog) {
+                // Create a message element for each chat log
+                var messageElement = document.createElement('li');
+
+                // Add appropriate classes based on the message type (history, enter, leave, talk)
+                if (chatLog.type === 'ENTER' || chatLog.type === 'LEAVE') {
+                    messageElement.classList.add('event-message');
+                } else {
+                    messageElement.classList.add('chat-message');
+
+                    var avatarElement = document.createElement('i');
+                    var avatarText = document.createTextNode(chatLog.sender[0]);
+                    avatarElement.appendChild(avatarText);
+                    avatarElement.style['background-color'] = getAvatarColor(chatLog.sender);
+                    messageElement.appendChild(avatarElement);
+
+                    var usernameElement = document.createElement('span');
+                    var usernameText = document.createTextNode(chatLog.sender);
+                    usernameElement.appendChild(usernameText);
+                    messageElement.appendChild(usernameElement);
+                }
+
+                var textElement = document.createElement('p');
+                var messageText = document.createTextNode(chatLog.message);
+                textElement.appendChild(messageText);
+
+                messageElement.appendChild(textElement);
+                messageArea.appendChild(messageElement);
+            });
+
+            // Scroll to the bottom of the chat area to display the latest messages
+            messageArea.scrollTop = messageArea.scrollHeight;
+        }
+    });
 }
 
 // 유저 리스트 받기

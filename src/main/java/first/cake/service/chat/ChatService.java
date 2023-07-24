@@ -1,17 +1,13 @@
 package first.cake.service.chat;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import first.cake.domain.item.dto.chat.ChatRoomDto;
+import first.cake.domain.dto.chat.ChatDto;
+import first.cake.domain.dto.chat.ChatRoomDto;
+import first.cake.domain.entity.chat.ChatLog;
 import first.cake.repository.chat.Chat;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
 
-import javax.annotation.PostConstruct;
-import java.io.IOException;
 import java.util.*;
 
 @Slf4j
@@ -67,5 +63,13 @@ public class ChatService {
     // 채팅방 전체 유저 조회
     public ArrayList<String> getUserList(String roomId) {
         return chat.getUserList(roomId);
+    }
+
+    public void insertChatLog(ChatDto chatDto){
+        chat.insertChatLog(chatDto);
+    }
+
+    public List<ChatLog> findChatLog(String roomId){
+        return chat.findChatLog(roomId);
     }
 }
