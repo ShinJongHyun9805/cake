@@ -3,8 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <title>홈</title>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=n8dwzvjoxs"></script>
 </head>
 <body>
-  <h2>홈화면이다아!!!!!!!!!</h2>
+<div id="map" style="width:100%; height:800px;"></div>
+
+<script type="text/javascript">
+    const latitude = 37.5112;
+    const longitude = 127.0981;
+
+    var coordinates = [
+        { latitude: 37.5682825, longitude: 127.0702278 },
+        { latitude: 37.5678141, longitude: 127.0722936 },
+        { latitude: 37.5665087, longitude: 127.0734602 },
+        { latitude: 37.5666476, longitude: 127.0706272 },
+        { latitude: 37.5674879, longitude: 127.0689755 },
+        { latitude: 37.5666118, longitude: 127.0683763 }
+    ];
+
+    // DOM 로드
+    document.addEventListener("DOMContentLoaded", function () {
+        // 웹 위치 허용 체크
+        if ("geolocation" in navigator) {
+            // geolocation API를 사용하여 현재 위치 구하기
+            navigator.geolocation.getCurrentPosition(function (position) {
+                // 위ㆍ경도 값
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+
+                setMapOption(latitude, longitude);
+
+            }, function (error) {
+                // 에러 발생 시 맵을 롯데월드 기준으로 생성
+                console.log("Error getting current location:", error);
+
+                setMapOption(latitude, longitude);
+            });
+        } else {
+            console.log("Geolocation is not supported by this browser.");
+            setMapOption(latitude, longitude);
+        }
+
+        function setMapOption(lat, lon){
+            // 맵 옵션 및 설정
+            var mapOptions = {
+                center: new naver.maps.LatLng(lat, lon),
+                zoom: 16
+            };
+            var map = new naver.maps.Map('map', mapOptions);
+
+            // 내 위치 마커
+            var markerOptions = {
+                position: new naver.maps.LatLng(lat, lon),
+                map: map,
+                icon: {
+                    url: './img/img.png', // Replace 'path/to/marker.png' with your image file path
+                    // content: '<img src="./img/img.png" alt="" style="margin: 0px; padding: 0px; border: 0px solid transparent; display: block; max-width: none; max-height: none; -webkit-user-select: none; position: absolute; width:32px; height: 32px; left: 0px; top: 0px;">',
+                    size: new naver.maps.Size(32, 32), // Set the size of the marker icon
+                    origin: new naver.maps.Point(32, 32), // Set the origin point of the icon (usually top-left corner)
+                    anchor: new naver.maps.Point(32, 32), // Set the anchor point of the icon (usually center-bottom)
+                },
+            };
+            var marker = new naver.maps.Marker(markerOptions);
+
+            // 주변 매장
+            if (!coordinates || coordinates.length !== 0) {
+                coordinates.forEach(function (coord) {
+                    var markerOptions = {
+                        position: new naver.maps.LatLng(coord.latitude, coord.longitude),
+                        map: map,
+                        // icon: {
+                        //     url: HOME_PATH + '/img/img.png', // Replace 'path/to/marker.png' with your image file path
+                        //     size: new naver.maps.Size(64, 64), // Set the size of the marker icon
+                        //     origin: new naver.maps.Point(0, 0), // Set the origin point of the icon (usually top-left corner)
+                        //     anchor: new naver.maps.Point(16, 32), // Set the anchor point of the icon (usually center-bottom)
+                        // },
+                    };
+                    var marker = new naver.maps.Marker(markerOptions);
+                });
+            }
+        }
+    });
+</script>
 </body>
 </html>

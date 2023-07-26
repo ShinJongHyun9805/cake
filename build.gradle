@@ -31,6 +31,11 @@ dependencies {
 	// kafka - 채팅 로그
 	implementation 'org.springframework.kafka:spring-kafka'
 
+	// webClient
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'io.projectreactor:reactor-core'
+	implementation 'org.springframework:spring-webflux'
+
 	// sockjs
 	implementation 'org.webjars:sockjs-client:1.5.1'
 	// stomp
