@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Business {
+public class BusinessRequest {
 
-    private List<BusinessInfo> businesses;
+    private List<BusinessReqInfo> businesses;
 }

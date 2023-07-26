@@ -13,6 +13,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
+import java.net.URI;
 import java.util.HashMap;
 
 @Slf4j
@@ -32,7 +33,7 @@ public class UserService {
 
 
     // 사업자 정보 검증
-    public String validateBizInfo(String requestBody, String url) {
+    public String validateBizInfo(String requestBody, URI url) {
         // 헤더
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -64,6 +65,7 @@ public class UserService {
                 .bodyToMono(String.class);
                 //.defaultIfEmpty("{\"statusCode\":\"200\"}");
 
+        // 동기/블라킹 방식
         return responseMono.block();
     }
 

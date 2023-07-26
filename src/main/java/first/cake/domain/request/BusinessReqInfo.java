@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BusinessInfo {
+public class BusinessReqInfo {
 
     String b_no;
     String start_dt;
