@@ -14,6 +14,9 @@ public interface User {
     // 아이디 중복체크
     String checkIdValidate(String loginId);
 
+    // 닉네임 중복체크
+    String checkNickNameValidate(String loginId);
+
     // 회원가입(DB INSERT)
     int signUp(HashMap<String,Object> reqVo);
 

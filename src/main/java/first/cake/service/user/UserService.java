@@ -27,6 +27,10 @@ public class UserService {
         return user.checkIdValidate(loginId);
     }
 
+    public String checkNickNameValidate(String loginId) {
+        return user.checkNickNameValidate(loginId);
+    }
+
     public int signUp(HashMap<String, Object> reqVo) {
         return user.signUp(reqVo);
     }

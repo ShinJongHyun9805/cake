@@ -10,13 +10,20 @@
         where id = #{loginId}
     </select>
 
+    <select id="checkNickNameValidate" parameterType="String" resultType="String">
+        select CASE WHEN COUNT(id) = 0 THEN 'Y'
+                    ELSE 'N' END
+        from cake_user
+        where nickName = #{nickName}
+    </select>
+
     <insert id="signUp" parameterType="HashMap">
         INSERT INTO cake_user
         VALUES
         (
             #{userId}
             ,#{userName}
-            ,IFNULL(#{userNickName},'종혀누바보')
+            ,#{userNickName}
             ,#{passwd}
             ,IFNULL(#{userPhoneNo},'010-1212-1212')
             ,IFNULL(#{userEmail},'aaa@naver.com')
