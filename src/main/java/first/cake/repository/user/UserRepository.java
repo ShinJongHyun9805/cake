@@ -17,6 +17,10 @@ public class UserRepository implements User {
     public String checkIdValidate(String loginId) {
         return userMapper.checkIdValidate(loginId);
     }
+    @Override
+    public String checkNickNameValidate(String loginId) {
+        return userMapper.checkNickNameValidate(loginId);
+    }
 
     @Override
     public int signUp(HashMap<String, Object> reqVo) {

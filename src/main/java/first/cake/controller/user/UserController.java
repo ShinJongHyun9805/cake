@@ -34,7 +34,7 @@ public class UserController {
     }
 
     /**
-     * 아이디 중복검사(탈퇴회원 포함)
+     * 아이디 중복검사
      */
     @RequestMapping(value = "/join/verifyLoginIdAjax", method = RequestMethod.POST)
     @ResponseBody
@@ -42,6 +42,20 @@ public class UserController {
         try{
             String loginId = (String) reqVo.get("loginId");
             return userService.checkIdValidate(loginId);
+        }catch (Exception e){
+            return String.valueOf(e);
+        }
+    }
+
+    /**
+     * 닉네임 중복검사
+     */
+    @RequestMapping(value = "/join/verifyNickNameAjax", method = RequestMethod.POST)
+    @ResponseBody
+    public String nickNameDuplicationCheckAjax(@RequestBody HashMap<String,Object> reqVo) {
+        try{
+            String nickName = (String) reqVo.get("nickName");
+            return userService.checkNickNameValidate(nickName);
         }catch (Exception e){
             return String.valueOf(e);
         }

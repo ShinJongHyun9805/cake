@@ -8,6 +8,8 @@ import java.util.HashMap;
 public interface UserMapper {
     // 아이디 중복체크
     String checkIdValidate(String loginId);
+    // 아이디 중복체크
+    String checkNickNameValidate(String loginId);
 
     // 회원가입(DB INSERT)
     int signUp(HashMap<String,Object> reqVo);
