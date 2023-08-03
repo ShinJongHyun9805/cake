@@ -1,8 +1,8 @@
-name: aws-v5
+name: cake
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
