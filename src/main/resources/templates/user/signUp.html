@@ -151,7 +151,8 @@
 
     let status = {
         isIdChecked: false,
-        isNickNameChecked: false
+        isNickNameChecked: false,
+        isPhoneNoChecked: false
     };
 
     $(document).ready(function () {
@@ -180,6 +181,7 @@
 
     // 아이디 중복 체크
     function verifyLoginIdAjax() {
+        status.isIdChecked = false;
 
         $('#member-join-general-id-text').val($('#member-join-general-id-text').val().toLowerCase());
         const loginId = $('#member-join-general-id-text').val();
@@ -228,6 +230,8 @@
 
     // 닉네임 중복 체크
     function verifyNickNameAjax() {
+        status.isNickNameChecked = false;
+
         const nickName = $('#member-join-general-nickName-text').val();
 
         const isValid = (nickName.length >= 3 && nickName.length <= 16);
@@ -372,68 +376,34 @@
         return true;
     }
 
+    function onClickMemberJoinPhoneText(){
+        alert('인증되었습니다');
+        status.isPhoneNoChecked = true;
+        $('#btn-phone-check').find('span').text('인증완료');
+    }
+
     function onSubmitJoinGeneral() {
 
-        // // 아이디 검증
-        // if ($('#btn-id-check').find('span').text() !== '확인완료'){
-        //   alert('아이디 중복확인을 버튼을 눌러주세요');
-        //   $('#btn-id-check').focus();
-        //   return false;
-        // }
-        //
-        // // 아이디 검증
-        // if (!verifyMemberJoinLoginIdAjax(true)) {
-        //   memberJoinStatus.isIdChecked = false;
-        //   $('#member-join-general-id-text').focus();
-        //   checkSubmitBtnState();
-        //   return false;
-        // }
-        //
-        // //비밀번호 미입력 검증
-        // if(!verifyMemberJoinPwEmpty()) {
-        //   memberJoinStatus.isPwChecked = false;
-        //   $('#member-join-general-pw-text').focus();
-        //   checkSubmitBtnState();
-        //   return false;
-        // }
-        //
-        // // 비밀번호 정규식 검증
-        // if (!verifyMemberJoinPassword(true)) {
-        //   memberJoinStatus.isPwChecked = false;
-        //   $('#member-join-general-pw-text').focus();
-        //   checkSubmitBtnState();
-        //   return false;
-        // }
+        // 아이디 검증
+        if (!status.isIdChecked){
+          alert('아이디 중복확인 버튼을 눌러주세요');
+          $('#btn-id-check').focus();
+          return false;
+        }
 
-        // 확인 비밀번호 검증 (비밀번호/확인 비밀번호 같은지 확인해서 처리하므로 생략)
-        // if (!verifyMemberJoinPwConfirm(true)) {
-        //     memberJoinStatus.isPwChecked = false;
-        //     $('#member-join-general-pw-confirm-text').focus();
-        //     checkSubmitBtnState();
-        //     return false;
-        // }
-
-        // // 비밀번호/확인 비밀번호 같은지 확인
-        // if (!verifyMemberJoinPasswordsMatching(true)) {
-        //   memberJoinStatus.isPwCompared = false;
-        //   alert('비밀번호를 확인해주세요.');
-        //   $('#member-join-general-pw-confirm-text').focus();
-        //   checkSubmitBtnState();
-        //   return false;
-        // }
-        //
-        // // 이름 검증
-        // if (!verifyMemberJoinUserName(true)) {
-        //   memberJoinStatus.isNameChecked = false;
-        //   $('#member-join-general-name-text').focus();
-        //   checkSubmitBtnState();
-        //   return false;
-        // }
-
-        if (status.isIdChecked && status.isNickNameChecked) return true;
-        else{
-            alert("확인하지 않은 부분이 있음.");
+        // 닉네임 검증
+        if (!status.isNickNameChecked){
+            alert('닉네임 중복확인 버튼을 눌러주세요');
+            $('#btn-nickName-check').focus();
             return false;
         }
+
+        // 휴대폰 인증 검증
+        if (!status.isPhoneNoChecked){
+            alert('휴대폰 인증을 해주세요');
+            return false;
+        }
+
+        return true;
     }
 </script>
