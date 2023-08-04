@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * AWS에서 / 경로가 없으면 심각한 에러라고 판단하여 알림을 계속 보냄.
  * 냄
- * 냄123
+ * 냄1235
  * */
 
 @RequiredArgsConstructor
