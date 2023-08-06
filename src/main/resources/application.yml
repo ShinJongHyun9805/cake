@@ -1,29 +1,4 @@
-springdoc:
-  swagger-ui:
-    path: /swagger-ui.html
-
 spring:
-  datasource:
-    url: jdbc:mysql://my8002.gabiadb.com:3306/cake?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: cake
-    password: 1q2w3e4r5t!
-    driver-class-name: com.mysql.cj.jdbc.Driver
   profiles:
-    active: local
-
-# MyBatis
-mybatis:
-  configuration:
-    map-underscore-to-camel-case: true
-  mapper-locations: classpath:mapper/**/*.xml
-
-server:
-  port: 8081
-
-api:
-  url:
-    validate-biz: http://api.odcloud.kr/api/nts-businessman/v1/validate?serviceKey=
-
-service:
-  key:
-    validate-biz: R8ImxtGkuUdDEbDF8oLDNVJjDuWNo9EG6xlzhXjdDvSN20iyo084NDxfTiqATzqBN6z98%2BEFHIShlu3%2Fy%2FhYSA%3D%3D
+    active:
+    - dev
