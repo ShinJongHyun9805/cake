@@ -25,7 +25,7 @@
             ,#{userName}
             ,#{userNickName}
             ,#{passwd}
-            ,IFNULL(#{userPhoneNo},'010-1212-1212')
+            ,REPLACE(#{userPhoneNo},'-','')
             ,IFNULL(#{userEmail},'aaa@naver.com')
             ,'N'
             ,NOW()

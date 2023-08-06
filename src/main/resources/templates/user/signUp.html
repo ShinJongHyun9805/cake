@@ -104,20 +104,20 @@
         <span class="error-msg" id="member-join-general-nickName-text-error">닉네임을 입력해주세요.</span>
     </div><!--// form-group -->
 
-      <div class="form-group">
+    <div class="form-group">
         <div class="form-head">
-          <i class="es2"></i><label for="member-join-general-phone-text" class="form-label">휴대전화</label>
+            <i class="es2"></i><label for="member-join-general-phone-text" class="form-label">휴대전화</label>
         </div><!--// form-head -->
         <div class="input-group type-lg">
-          <input type="text" id="member-join-general-phone-text" name="member-join-general-phone-text" class="input-text w571" placeholder="본인인증 버튼을 눌러주세요." value="" readonly>
-          <span class="input-group-btn"><button type="button" id="btn-phone-check" class="btn-form btn-default-ex" onclick="onClickMemberJoinPhoneText();"><span>본인인증</span></button></span>
-          <!-- 인증완료시 addClass checked -->
+            <input type="text" id="member-join-general-phone-text" name="userPhoneNo" class="input-text w571" placeholder="본인인증 버튼을 눌러주세요." value="">
+            <span class="input-group-btn"><button type="button" id="btn-phone-check" class="btn-form btn-default-ex" onclick="onClickMemberJoinPhoneText();"><span>본인인증</span></button></span>
+            <!-- 인증완료시 addClass checked -->
         </div>
         <span class="error-msg" id="member-join-general-phone-text-error">인증되었습니다.</span>
 
         <div id="member-join-general-phone-certi">
         </div>
-      </div>
+    </div>
 
     <!--  <div class="form-group email-wrap">-->
     <!--    <div class="form-head">-->
@@ -386,9 +386,9 @@
 
         // 아이디 검증
         if (!status.isIdChecked){
-          alert('아이디 중복확인 버튼을 눌러주세요');
-          $('#btn-id-check').focus();
-          return false;
+            alert('아이디 중복확인 버튼을 눌러주세요');
+            $('#btn-id-check').focus();
+            return false;
         }
 
         // 닉네임 검증
