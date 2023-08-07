@@ -7,6 +7,7 @@ import first.cake.domain.request.BusinessRequest;
 import first.cake.domain.response.BusinessResInfo;
 import first.cake.domain.response.BusinessResponse;
 import first.cake.service.user.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +17,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @SpringBootTest
 class BizUserControllerTest {
 
@@ -55,8 +57,12 @@ class BizUserControllerTest {
 
     @Test
     void 사업자정보_yml에서_데이터_가져오기(){
-        String u = validateURL + serviceKey;
-        System.out.println("u = " + u);
+        try {
+            String u = validateURL + serviceKey;
+        } catch (Exception e){
+            log.debug("에러: " + e.getMessage());
+            log.info("에러: " + e.getMessage());
+        }
     }
 
     @Test

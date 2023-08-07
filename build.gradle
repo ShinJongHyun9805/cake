@@ -51,6 +51,10 @@ dependencies {
 
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.8'
 
+	// TDD에서 로그
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.3.1'
