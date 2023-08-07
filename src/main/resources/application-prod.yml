@@ -1,0 +1,44 @@
+server:
+  port: 5000
+  servlet:
+    encoding:
+      charset: utf-8
+
+
+spring:
+  datasource:
+    url: jdbc:mysql://${rds.hostname}:${rds.port}/${rds.db.name}?allowPublicKeyRetrieval=true&useSSL=false
+    username: ${rds.username}
+    password: ${rds.password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+  level:
+    '[org.springframework.boot.web]': INFO
+
+# MyBatis
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/**/*.xml
+
+# AWS S3 이미지 업로드
+cloud:
+  aws:
+    s3:
+      bucket:
+        stack.auto: false
+        region.static: ap-northeast-2
+        credentials:
+          accessKey: ${{ secrets.AWS_ACCESS_KEY }}
+          secretKey: ${{ secrets.AWS_SECRET_KEY }}
+
+
+# 사업자 검증
+api:
+  url:
+    validate-biz: http://api.odcloud.kr/api/nts-businessman/v1/validate?serviceKey=
+
+service:
+  key:
+    validate-biz: ${{ secrets.BIZ_VALIDATE_KEY }}
