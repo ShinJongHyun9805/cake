@@ -22,7 +22,7 @@ class BizUserControllerTest {
     @Value("${api.url.validate-biz:not-used}")
     private String validateURL;
 
-    @Value("${service.key.validate-biz:not-used}")
+    @Value("${BIZ_VALIDATE_KEY}")
     private String serviceKey;
 
     @Autowired
