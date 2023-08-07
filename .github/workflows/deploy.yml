@@ -15,17 +15,23 @@ jobs:
         with:
           java-version: 11
           distribution: zulu
-#      - name: Set Yaml
-#        uses: microsoft/variable-substitution@v1
-#        with:
-#          files: ./src/main/resources/application-prod.yml
-#        env:
-#          service.key: ${{ secrets.BIZ_VALIDATE_KEY }}
-#          rds_hostname: ${{ secrets.RDS_HOSTNAME }}
-#          rds_port: ${{ secrets.RDS_PORT }}
-#          rds_db_name: ${{ secrets.RDS_DB_NAME }}
-#          rds_username: ${{ secrets.RDS_USERNAME }}
-#          rds_password: ${{ secrets.RDS_PASSWORD }}
+      - name: Set Yaml
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: ./src/main/resources/application-prod.yml
+        env:
+          service.key: ${{ secrets.BIZ_VALIDATE_KEY }}
+      - name: Set Environment Variables
+        run: |
+          echo "SPRING_DATASOURCE_URL=jdbc:mysql://${{ secrets.RDS_HOSTNAME }}:${{ secrets.RDS_PORT }}/${{ secrets.RDS_DB_NAME }}?allowPublicKeyRetrieval=true&useSSL=false" >> $GITHUB_ENV
+          echo "SPRING_DATASOURCE_USERNAME=${{ secrets.RDS_USERNAME }}" >> $GITHUB_ENV
+          echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.RDS_PASSWORD }}" >> $GITHUB_ENV
+          echo "SERVICE_KEY=${{ secrets.BIZ_VALIDATE_KEY }}" >> $GITHUB_ENV
+#          rds.hostname: ${{ secrets.RDS_HOSTNAME }}
+#          rds.port: ${{ secrets.RDS_PORT }}
+#          rds.db.name: ${{ secrets.RDS_DB_NAME }}
+#          rds.username: ${{ secrets.RDS_USERNAME }}
+#          rds.password: ${{ secrets.RDS_PASSWORD }}
       - name: Pemission
         run: chmod +x ./gradlew
       - name: Build with Gradle
