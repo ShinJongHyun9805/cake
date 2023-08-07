@@ -30,5 +30,4 @@ api:
     validate-biz: http://api.odcloud.kr/api/nts-businessman/v1/validate?serviceKey=
 
 service:
-  key:
-    validate-biz: R8ImxtGkuUdDEbDF8oLDNVJjDuWNo9EG6xlzhXjdDvSN20iyo084NDxfTiqATzqBN6z98%2BEFHIShlu3%2Fy%2FhYSA%3D%3D
+  key: ${service.key.validate-biz}
