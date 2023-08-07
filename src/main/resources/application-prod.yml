@@ -41,4 +41,4 @@ api:
 
 service:
   key:
-    validate-biz: ${{ secrets.BIZ_VALIDATE_KEY }}
+    validate-biz: ${BIZ_VALIDATE_KEY}
