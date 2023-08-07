@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      BIZ_VALIDATE_KEY: ${{ secrets.BIZ_VALIDATE_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
