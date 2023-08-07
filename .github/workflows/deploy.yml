@@ -21,11 +21,11 @@ jobs:
           files: ./src/main/resources/application-prod.yml
         env:
           service.key: ${{ secrets.BIZ_VALIDATE_KEY }}
-          rds_hostname: ${{ secrets.RDS_HOSTNAME }}
-          rds_port: ${{ secrets.RDS_PORT }}
-          rds_db_name: ${{ secrets.RDS_DB_NAME }}
-          rds_username: ${{ secrets.RDS_USERNAME }}
-          rds_password: ${{ secrets.RDS_PASSWORD }}
+#          rds_hostname: ${{ secrets.RDS_HOSTNAME }}
+#          rds_port: ${{ secrets.RDS_PORT }}
+#          rds_db_name: ${{ secrets.RDS_DB_NAME }}
+#          rds_username: ${{ secrets.RDS_USERNAME }}
+#          rds_password: ${{ secrets.RDS_PASSWORD }}
       - run: echo ${{ github.workspace }}
       - name: Pemission
         run: chmod +x ./gradlew
