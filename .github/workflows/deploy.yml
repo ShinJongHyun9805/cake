@@ -10,6 +10,10 @@ jobs:
     env:
       service.key.validate-biz: ${{ secrets.BIZ_VALIDATE_KEY }}
     steps:
+      # Add a step to print the value of the secret
+      - name: Debug
+        run:
+          echo "Secret value: $SERVICE_KEY_VALIDATE_BIZ"
       - name: Checkout
         uses: actions/checkout@v3
       - name: Set up JDK 11
