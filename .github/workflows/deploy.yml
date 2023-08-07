@@ -15,8 +15,6 @@ jobs:
         with:
           java-version: 11
           distribution: zulu
-        env:
-          service.key.validate-biz: ${{ secrets.BIZ_VALIDATE_KEY }}
       - name: Pemission
         run: chmod +x ./gradlew
       - name: Build with Gradle
@@ -39,6 +37,12 @@ jobs:
           cp Procfile deploy/Procfile
           cp -r .ebextensions deploy/.ebextensions
           cd deploy && zip -r deploy.zip .
+      - name: Set Yaml
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: ./deploy/application-prod.yml
+        env:
+          SERVICE_KEY_VALIDATE_BIZ: ${{ secrets.BIZ_VALIDATE_KEY }}
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
         with:

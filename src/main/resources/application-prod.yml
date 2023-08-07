@@ -22,18 +22,6 @@ mybatis:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/**/*.xml
 
-# AWS S3 이미지 업로드
-#cloud:
-#  aws:
-#    s3:
-#      bucket:
-#        stack.auto: false
-#        region.static: ap-northeast-2
-#        credentials:
-#          accessKey: ${{ secrets.AWS_ACCESS_KEY }}
-#          secretKey: ${{ secrets.AWS_SECRET_KEY }}
-
-
 # 사업자 검증
 api:
   url:
