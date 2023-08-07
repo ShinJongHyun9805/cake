@@ -15,13 +15,6 @@ jobs:
         with:
           java-version: 11
           distribution: zulu
-      - name: Setup MySQL
-        uses: samin/mysql-action@v1
-        with:
-            character set server: 'utf8'
-            mysql database: ${{ secrets.RDS_DB_NAME }}
-            mysql user: ${{ secrets.RDS_USERNAME }}
-            mysql password: ${{ secrets.RDS_PASSWORD }}
       - name: Set Yaml
         uses: microsoft/variable-substitution@v1
         with:
@@ -33,7 +26,6 @@ jobs:
 #          rds_db_name: ${{ secrets.RDS_DB_NAME }}
 #          rds_username: ${{ secrets.RDS_USERNAME }}
 #          rds_password: ${{ secrets.RDS_PASSWORD }}
-
       - name: Pemission
         run: chmod +x ./gradlew
       - name: Build with Gradle
