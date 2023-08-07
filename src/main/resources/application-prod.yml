@@ -41,4 +41,4 @@ api:
 
 service:
   key:
-    validate-biz: R8ImxtGkuUdDEbDF8oLDNVJjDuWNo9EG6xlzhXjdDvSN20iyo084NDxfTiqATzqBN6z98%2BEFHIShlu3%2Fy%2FhYSA%3D%3D
+    validate-biz: ${BIZ_VALIDATE_KEY}
