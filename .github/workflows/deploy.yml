@@ -15,12 +15,12 @@ jobs:
         with:
           java-version: 11
           distribution: zulu
-      - name: Set Yaml
-        uses: microsoft/variable-substitution@v1
-        with:
-          files: ./src/main/resources/application-prod.yml
-        env:
-          service.key: ${{ secrets.BIZ_VALIDATE_KEY }}
+#      - name: Set Yaml
+#        uses: microsoft/variable-substitution@v1
+#        with:
+#          files: ./src/main/resources/application-prod.yml
+#        env:
+#          service.key: ${{ secrets.BIZ_VALIDATE_KEY }}
 #          rds_hostname: ${{ secrets.RDS_HOSTNAME }}
 #          rds_port: ${{ secrets.RDS_PORT }}
 #          rds_db_name: ${{ secrets.RDS_DB_NAME }}
