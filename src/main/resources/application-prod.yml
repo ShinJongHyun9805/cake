@@ -39,6 +39,6 @@ api:
   url:
     validate-biz: http://api.odcloud.kr/api/nts-businessman/v1/validate?serviceKey=
 
-#service:
-#  key:
-#    validate-biz: ${BIZ_VALIDATE_KEY}
+service:
+  key:
+    validate-biz: ${BIZ_VALIDATE_KEY}

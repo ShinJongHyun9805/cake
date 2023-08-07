@@ -32,7 +32,7 @@ public class BizUserController {
     @Value("${api.url.validate-biz:not-used}")
     private String validateURL;
 
-    @Value("${BIZ_VALIDATE_KEY}")
+    @Value("${service.key.validate-biz:not-used}")
     private String serviceKey;
 
     private final UserService userService;
