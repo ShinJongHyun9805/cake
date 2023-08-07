@@ -20,7 +20,7 @@ jobs:
         with:
           files: ./src/main/resources/application-prod.yml
         env:
-          service.key.validate-biz: ${{ secrets.BIZ_VALIDATE_KEY }}
+          service.key: ${{ secrets.BIZ_VALIDATE_KEY }}
       - name: Pemission
         run: chmod +x ./gradlew
       - name: Build with Gradle

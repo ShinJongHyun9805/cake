@@ -24,7 +24,7 @@ class BizUserControllerTest {
     @Value("${api.url.validate-biz:not-used}")
     private String validateURL;
 
-    @Value("${service.key.validate-biz:not-used}")
+    @Value("${service.key:not-used}")
     private String serviceKey;
 
     @Autowired
