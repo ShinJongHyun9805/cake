@@ -9,6 +9,7 @@ import first.cake.domain.response.BusinessResponse;
 import first.cake.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -70,7 +71,7 @@ class BizUserControllerTest {
         // 사업자 정보 Data format
         BusinessReqInfo businessInfo = BusinessReqInfo.builder()
                 .b_no("3678100561")
-                .start_dt("201609310")
+                .start_dt("20160930")
                 .p_nm("윤종일")
                 .build();
 
@@ -87,16 +88,25 @@ class BizUserControllerTest {
         // URL
         // TODO : URL은 string으로 하는게 아니라 Uri로 감싸야함. 아니면 또 인코딩 되는 듯
         //String url = validateURL + serviceKey;
-        URI url = URI.create(validateURL + serviceKey);
+        URI url = URI.create("");
+        try {
+            url = URI.create(validateURL + serviceKey);
+        } catch (Exception e){
+            log.debug("에러: " + e.getMessage());
+            log.info("에러: " + e.getMessage());
+        }
+
 
         BusinessResponse res = new BusinessResponse();
         try {
             String response = userService.validateBizInfo(requestBody, url);
             res = new ObjectMapper().readValue(response, new TypeReference<BusinessResponse>() {});
         } catch (RuntimeException e){
-            System.out.println("runtime e.getMessage() = " + e.getMessage());
+            log.debug("에러: " + e.getMessage());
+            log.info("에러: " + e.getMessage());
         } catch (Exception e){
-            System.out.println("exception e.getMessage() = " + e.getMessage());
+            log.debug("에러: " + e.getMessage());
+            log.info("에러: " + e.getMessage());
         }
 
         BusinessResInfo businessResInfo = res.getData().get(0);
