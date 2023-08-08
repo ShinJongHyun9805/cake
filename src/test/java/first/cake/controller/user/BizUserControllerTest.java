@@ -109,7 +109,7 @@ class BizUserControllerTest {
             log.info("에러: " + e.getMessage());
         }
 
-        BusinessResInfo businessResInfo = res.getData().get(0);
+        //BusinessResInfo businessResInfo = res.getData().get(0);
 
     }
 }
