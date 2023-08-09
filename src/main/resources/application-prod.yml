@@ -15,12 +15,12 @@ spring:
 cloud:
   aws:
     credentials:
-      accessKey: ${{ secrets.access.key }}
-      secretKey: ${{ secrets.secret.key }}
-    s3:
-      bucket: ${{ secrets.s3.bucket }}
-      url: ${{ secrets.s3.url }}
-      region: ${{ secrets.s3.region }}
+      accessKey: ${access.key}
+      secretKey: ${secret.key}
+    s3: #버킷이름
+      bucket: ${s3.bucket}
+      url : ${s3.url}
+      region: ${s3.region}
       stack:
         auto: false
 
