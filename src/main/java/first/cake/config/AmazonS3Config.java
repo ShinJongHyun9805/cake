@@ -11,13 +11,13 @@ import org.springframework.stereotype.Component;
 public class AmazonS3Config {
 
 
-    @Value("${cloud.aws.s3.region}")
-    private String region;
+//    @Value("${cloud.aws.s3.region}")
+//    private String region;
 
     @Bean
     public AmazonS3 amazonS3() {
         return AmazonS3Client.builder()
-                .withRegion(region)
+                .withRegion("ap-northeast-2")
                 .build();
     }
 }
