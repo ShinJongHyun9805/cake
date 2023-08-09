@@ -41,7 +41,7 @@ jobs:
           s3.url: ${{ secrets.AWS_S3_URL }}
           s3.region: ${{ secrets.AWS_S3_REGION }}
 
-      - name: Pemission
+      - name: Permission
         run: chmod +x ./gradlew
 
       - name: Build with Gradle
@@ -64,6 +64,7 @@ jobs:
           cp Procfile deploy/Procfile
           cp -r .ebextensions deploy/.ebextensions
           cd deploy && zip -r deploy.zip .
+
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
         with:

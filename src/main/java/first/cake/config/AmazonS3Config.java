@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Configuration
 public class AmazonS3Config {
 
-    @Value("${cloud.aws.s3.region:not-used}")
+    @Value("${cloud.aws.s3.region}")
     private String region;
 
     @Bean
