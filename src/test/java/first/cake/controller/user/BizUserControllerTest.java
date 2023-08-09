@@ -4,12 +4,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import first.cake.domain.request.BusinessReqInfo;
 import first.cake.domain.request.BusinessRequest;
-import first.cake.domain.response.BusinessResInfo;
 import first.cake.domain.response.BusinessResponse;
 import first.cake.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.parallel.Execution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,6 +35,11 @@ class BizUserControllerTest {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @Test
+    public void contextLoads(){
+
     }
 
     @Test
