@@ -12,7 +12,10 @@ CREATE TABLE `cake`.`cake_chat_log` (
             `room_id` VARCHAR(45) NULL,
             `sender` VARCHAR(45) NULL,
             `message` VARCHAR(1024) NULL,
-            `time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP)
+            `time` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+            `s3DataUrl` VARCHAR(1024) NULL,
+            `fileName` VARCHAR(1024) NULL,
+            `fileDir` VARCHAR(1024) NULL)
     ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 

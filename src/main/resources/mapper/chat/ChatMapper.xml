@@ -50,7 +50,10 @@
              #{roomId},
              #{sender},
              #{message},
-             NOW()
+             NOW(),
+             #{s3DataUrl},
+             #{fileName},
+             #{fileDir}
          )
     </insert>
 
@@ -62,7 +65,10 @@
             cr.store_name,
             cl.sender,
             cl.message,
-            cl.time
+            cl.time,
+            cl.s3DataUrl,
+            cl.fileName,
+            cl.fileDir
         FROM cake.cake_chatting_room AS cr
                  INNER JOIN cake.cake_chat_log AS cl
                             ON cl.room_id = cr.room_id

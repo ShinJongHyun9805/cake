@@ -11,6 +11,20 @@ spring:
     password: ${RDS_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+# S3 이미지 업로드
+cloud:
+  aws:
+    credentials:
+      accessKey: ${access.key}
+      secretKey: ${secret.key}
+    s3: #버킷이름
+      bucket: ${s3.bucket}
+      url : ${s3.url}
+      region: #S3 지역
+        static: ${s3.region}
+      stack:
+        auto: false
+
 logging:
   level:
     '[org.springframework.boot.web]': INFO
