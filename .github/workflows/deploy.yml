@@ -44,8 +44,9 @@ jobs:
 #          rds.password: ${{ secrets.RDS_PASSWORD }}
       - name: Pemission
         run: chmod +x ./gradlew
+
       - name: Build with Gradle
-        run: ./gradlew clean build
+        run: ./gradlew clean build --debug
 
       - name: Get current time
         uses: 1466587594/get-current-time@v2
