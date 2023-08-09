@@ -32,6 +32,11 @@ jobs:
           echo "SPRING_DATASOURCE_USERNAME=${{ secrets.RDS_USERNAME }}" >> $GITHUB_ENV
           echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.RDS_PASSWORD }}" >> $GITHUB_ENV
           echo "SERVICE_KEY=${{ secrets.BIZ_VALIDATE_KEY }}" >> $GITHUB_ENV
+          echo "ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}" >> $GITHUB_ENV
+          echo "SECRET_KEY=${{ secrets.AWS_SECRET_KEY }}" >> $GITHUB_ENV
+          echo "S3_BUCKET=${{ secrets.AWS_S3_BUCKET }}" >> $GITHUB_ENV
+          echo "S3_URL=${{ secrets.AWS_S3_URL }}" >> $GITHUB_ENV
+          echo "S3_REGION=${{ secrets.AWS_S3_REGION }}" >> $GITHUB_ENV
 #          rds.hostname: ${{ secrets.RDS_HOSTNAME }}
 #          rds.port: ${{ secrets.RDS_PORT }}
 #          rds.db.name: ${{ secrets.RDS_DB_NAME }}
