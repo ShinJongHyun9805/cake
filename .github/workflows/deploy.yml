@@ -25,7 +25,7 @@ jobs:
           secret.key: ${{ secrets.AWS_SECRET_KEY }}
           s3.bucket: ${{ secrets.AWS_S3_BUCKET }}
           s3.url: ${{ secrets.AWS_S3_URL }}
-          #s3.region: ${{ secrets.AWS_S3_REGION }}
+          s3.region: ${{ secrets.AWS_S3_REGION }}
       - name: Set Environment Variables
         run: |
           echo "SPRING_DATASOURCE_URL=jdbc:mysql://${{ secrets.RDS_HOSTNAME }}:${{ secrets.RDS_PORT }}/${{ secrets.RDS_DB_NAME }}?allowPublicKeyRetrieval=true&useSSL=false" >> $GITHUB_ENV
@@ -37,11 +37,6 @@ jobs:
           echo "S3_BUCKET=${{ secrets.AWS_S3_BUCKET }}" >> $GITHUB_ENV
           echo "S3_URL=${{ secrets.AWS_S3_URL }}" >> $GITHUB_ENV
           echo "S3_REGION=${{ secrets.AWS_S3_REGION }}" >> $GITHUB_ENV
-#          rds.hostname: ${{ secrets.RDS_HOSTNAME }}
-#          rds.port: ${{ secrets.RDS_PORT }}
-#          rds.db.name: ${{ secrets.RDS_DB_NAME }}
-#          rds.username: ${{ secrets.RDS_USERNAME }}
-#          rds.password: ${{ secrets.RDS_PASSWORD }}
       - name: Pemission
         run: chmod +x ./gradlew
 
