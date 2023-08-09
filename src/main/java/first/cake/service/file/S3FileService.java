@@ -31,11 +31,11 @@ public class S3FileService implements FileService {
     private final AmazonS3 amazonS3;
 
     // S3 bucket 이름
-    @Value("${cloud.aws.s3.bucket}")
+    @Value("${cloud.aws.s3.bucket:not-used}")
     private String bucket;
 
     // S3 base URL
-    @Value("${cloud.aws.s3.url}")
+    @Value("${cloud.aws.s3.url:not-used}")
     private String baseUrl;
 
     // MultipartFile 과 transcation, roomId 를 전달받는다.
