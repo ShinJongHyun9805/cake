@@ -20,7 +20,7 @@ cloud:
     s3: #버킷이름
       bucket: ${s3.bucket}
       url : ${s3.url}
-      region: ${s3.region}
+      region: ap-northeast-2
       stack:
         auto: false
 

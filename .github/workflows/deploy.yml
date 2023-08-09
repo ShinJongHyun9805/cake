@@ -25,7 +25,7 @@ jobs:
           secret.key: ${{ secrets.AWS_SECRET_KEY }}
           s3.bucket: ${{ secrets.AWS_S3_BUCKET }}
           s3.url: ${{ secrets.AWS_S3_URL }}
-          s3.region: ${{ secrets.AWS_S3_REGION }}
+          #s3.region: ${{ secrets.AWS_S3_REGION }}
       - name: Set Environment Variables
         run: |
           echo "SPRING_DATASOURCE_URL=jdbc:mysql://${{ secrets.RDS_HOSTNAME }}:${{ secrets.RDS_PORT }}/${{ secrets.RDS_DB_NAME }}?allowPublicKeyRetrieval=true&useSSL=false" >> $GITHUB_ENV
