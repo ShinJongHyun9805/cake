@@ -35,11 +35,11 @@ jobs:
           files: ./src/main/resources/application-prod.yml
         env:
           service.key: ${{ secrets.BIZ_VALIDATE_KEY }}
-          access.key: ${{ secrets.AWS_ACCESS_KEY }}
-          secret.key: ${{ secrets.AWS_SECRET_KEY }}
-          s3.bucket: ${{ secrets.AWS_S3_BUCKET }}
-          s3.url: ${{ secrets.AWS_S3_URL }}
-          s3.region: ${{ secrets.AWS_S3_REGION }}
+          cloud.aws.credentials.access.key: ${{ secrets.AWS_ACCESS_KEY }}
+          cloud.aws.credentials.secret.key: ${{ secrets.AWS_SECRET_KEY }}
+          cloud.aws.s3.bucket: ${{ secrets.AWS_S3_BUCKET }}
+          cloud.aws.s3.url: ${{ secrets.AWS_S3_URL }}
+          cloud.aws.s3.region: ${{ secrets.AWS_S3_REGION }}
 
       - name: Permission
         run: chmod +x ./gradlew
