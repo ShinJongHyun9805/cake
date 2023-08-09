@@ -46,7 +46,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build with Gradle
-        run: ./gradlew clean build --debug
+        run: ./gradlew clean build --stacktrace
 
       - name: Get current time
         uses: 1466587594/get-current-time@v2
