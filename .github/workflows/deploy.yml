@@ -23,8 +23,8 @@ jobs:
           echo "SPRING_DATASOURCE_USERNAME=${{ secrets.RDS_USERNAME }}" >> $GITHUB_ENV
           echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.RDS_PASSWORD }}" >> $GITHUB_ENV
           echo "SERVICE_KEY=${{ secrets.BIZ_VALIDATE_KEY }}" >> $GITHUB_ENV
-          echo "CLOUD_AWS_CREDENTIALS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}" >> $GITHUB_ENV
-          echo "CLOUD_AWS_CREDENTIALS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }}" >> $GITHUB_ENV
+          echo "CLOUD_AWS_CREDENTIALS_ACCESSKEY=${{ secrets.AWS_ACCESS_KEY }}" >> $GITHUB_ENV
+          echo "CLOUD_AWS_CREDENTIALS_SECRETKEY=${{ secrets.AWS_SECRET_KEY }}" >> $GITHUB_ENV
           echo "CLOUD_AWS_S3_BUCKET=${{ secrets.AWS_S3_BUCKET }}" >> $GITHUB_ENV
           echo "CLOUD_AWS_S3_URL=${{ secrets.AWS_S3_URL }}" >> $GITHUB_ENV
           echo "CLOUD_AWS_S3_REGION=${{ secrets.AWS_S3_REGION }}" >> $GITHUB_ENV
@@ -35,8 +35,8 @@ jobs:
           files: ./src/main/resources/application-prod.yml
         env:
           service.key: ${{ secrets.BIZ_VALIDATE_KEY }}
-          cloud.aws.credentials.access.key: ${{ secrets.AWS_ACCESS_KEY }}
-          cloud.aws.credentials.secret.key: ${{ secrets.AWS_SECRET_KEY }}
+          cloud.aws.credentials.accessKey: ${{ secrets.AWS_ACCESS_KEY }}
+          cloud.aws.credentials.secretKey: ${{ secrets.AWS_SECRET_KEY }}
           cloud.aws.s3.bucket: ${{ secrets.AWS_S3_BUCKET }}
           cloud.aws.s3.url: ${{ secrets.AWS_S3_URL }}
           cloud.aws.s3.region: ${{ secrets.AWS_S3_REGION }}

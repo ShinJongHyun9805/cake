@@ -15,8 +15,8 @@ spring:
 cloud:
   aws:
     credentials:
-      accessKey: ${credentials.access.key}
-      secretKey: ${credentials.secret.key}
+      accessKey: ${access.key}
+      secretKey: ${secret.key}
     s3: #버킷이름
       bucket: ${s3.bucket}
       url : ${s3.url}
