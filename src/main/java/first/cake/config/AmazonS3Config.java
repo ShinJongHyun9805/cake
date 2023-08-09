@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AmazonS3Config {
 
-    @Value("${cloud.aws.s3.region.static}")
+    @Value("${cloud.aws.s3.region}")
     private String region;
 
     @Bean

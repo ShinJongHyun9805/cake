@@ -20,8 +20,7 @@ cloud:
     s3: #버킷이름
       bucket: ${s3.bucket}
       url : ${s3.url}
-      region: #S3 지역
-        static: ${s3.region}
+      region: ${s3.region}
       stack:
         auto: false
 
