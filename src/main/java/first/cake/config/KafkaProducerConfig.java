@@ -26,7 +26,7 @@ public class KafkaProducerConfig {
         // 설정값을 셋팅할 map
         Map<String, Object> config = new HashMap<>();
 
-        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092"); // 서버 정보 추가
+        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "3.39.95.223:9092"); // 서버 정보 추가
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class); // 키 시리얼라이저 정보 추가
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class); // value 시리얼라이저 정보 추가
 
