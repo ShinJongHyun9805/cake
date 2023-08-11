@@ -1,10 +1,13 @@
 package first.cake.config;
 
 import first.cake.domain.dto.chat.ChatDto;
+import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -20,13 +23,21 @@ import java.util.Map;
 
 @EnableKafka
 @Configuration
+@RequiredArgsConstructor
 public class KafkaProducerConfig {
+
+    private final Environment environment;
+
+    // 실행 환경
+    @Value("${ip.address}")
+    private String IP_ADDRESS;
+
     @Bean
     public ProducerFactory<String, ChatDto> producerFactory(){
         // 설정값을 셋팅할 map
         Map<String, Object> config = new HashMap<>();
 
-        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "43.201.238.129:9092"); // 서버 정보 추가
+        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, IP_ADDRESS + ":9092"); // 서버 정보 추가
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class); // 키 시리얼라이저 정보 추가
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class); // value 시리얼라이저 정보 추가
 

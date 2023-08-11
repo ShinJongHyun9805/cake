@@ -28,6 +28,7 @@ jobs:
           echo "CLOUD_AWS_S3_BUCKET=${{ secrets.AWS_S3_BUCKET }}" >> $GITHUB_ENV
           echo "CLOUD_AWS_S3_URL=${{ secrets.AWS_S3_URL }}" >> $GITHUB_ENV
           echo "CLOUD_AWS_S3_REGION=${{ secrets.AWS_S3_REGION }}" >> $GITHUB_ENV
+          echo "IP_ADDRESS=${{ secrets.IP_ADDRESS }}" >> $GITHUB_ENV
 
       - name: Set Yaml
         uses: microsoft/variable-substitution@v1
@@ -40,6 +41,7 @@ jobs:
           cloud.aws.s3.bucket: ${{ secrets.AWS_S3_BUCKET }}
           cloud.aws.s3.url: ${{ secrets.AWS_S3_URL }}
           cloud.aws.s3.region: ${{ secrets.AWS_S3_REGION }}
+          ip.address: ${{ secrets.IP_ADDRESS }}
 
       - name: Permission
         run: chmod +x ./gradlew

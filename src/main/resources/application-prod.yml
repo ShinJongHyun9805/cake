@@ -26,7 +26,7 @@ cloud:
 
 logging:
   level:
-    '[org.springframework.boot.web]': ERROR
+    root: ERROR
 
 # MyBatis
 mybatis:
@@ -41,3 +41,7 @@ api:
 
 service:
   key: ${service.key.validate-biz}
+
+# Kafka IP address
+ip:
+  address: ${ip.address}
