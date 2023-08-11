@@ -27,7 +27,7 @@ public class KafkaConsumerConfig {
     private final Environment environment;
 
     // 실행 환경
-    @Value("${ip.address:localhost}")
+    @Value("${ip.address}")
     private String IP_ADDRESS;
 
     @Bean
