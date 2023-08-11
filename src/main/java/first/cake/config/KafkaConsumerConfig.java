@@ -35,11 +35,12 @@ public class KafkaConsumerConfig {
 
         // dev, prod 환경 체크
         String[] activeProfiles = environment.getActiveProfiles();
-        String profile = activeProfiles[0];
+        if (activeProfiles.length == 0){
+            IP_ADDRESS = "localhost";
+        }
 
         // 설정값을 셋팅할 map
         Map<String, Object> config = new HashMap<>();
-
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, IP_ADDRESS + ":9092");
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_1");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);

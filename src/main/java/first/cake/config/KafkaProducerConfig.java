@@ -34,9 +34,15 @@ public class KafkaProducerConfig {
 
     @Bean
     public ProducerFactory<String, ChatDto> producerFactory(){
+
+        // dev, prod 환경 체크
+        String[] activeProfiles = environment.getActiveProfiles();
+        if (activeProfiles.length == 0){
+            IP_ADDRESS = "localhost";
+        }
+
         // 설정값을 셋팅할 map
         Map<String, Object> config = new HashMap<>();
-
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, IP_ADDRESS + ":9092"); // 서버 정보 추가
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class); // 키 시리얼라이저 정보 추가
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class); // value 시리얼라이저 정보 추가
